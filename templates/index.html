@@ -2,17 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}Home{% endblock %}</title>
     <link href="/static/style.css" rel="stylesheet">
 </head>
 <body>
     <nav>
         <ul>
             <li><a href="/">Home</a></li>
+            <li><a href="/projects">Projects</a></li>
+            <li><a href="/items">Items</a></li>
         </ul>
     </nav>
     {% block content %}
-    
+        <h1>Personalized Catalog</h1>
     {% endblock %}
 </body>
 </html>
