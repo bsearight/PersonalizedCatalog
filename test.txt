@@ -7,3 +7,5 @@ Jenna test 3
 Brackets push test 
 
 Phoenix code push test 
+
+Error check 
