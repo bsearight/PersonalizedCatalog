@@ -1,0 +1,37 @@
+body{
+    background-color: black;
+    color: white
+}
+a{
+    color: white
+}
+nav{
+    background-color: black;
+    width: 50%;
+}
+nav ul{
+    padding: 10px;
+    margin: 0px;
+    list-style-type: none;
+}
+nav ul li{
+    display: inline;
+    padding: 5px;
+}
+nav ul li a:link, nav ul li a:visited{
+    color:lightgreen;
+}
+nav ul li a:hover{
+    color: yellow;
+}
+nav ul li.selected{
+    background-color: darkblue;
+}
+table tr th{
+    border-style: solid;
+    padding: 4px;
+}
+table tr td{
+    border-style: solid;
+    padding: 4px;
+}
