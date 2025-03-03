@@ -93,6 +93,13 @@ def projects():
 def items():
     return render_template("items.html")
 
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        # handle user login
+        return redirect("/")
+    return render_template("login.html")
+
 with app.app_context():
     db.create_all()
 app.run(debug=True)
