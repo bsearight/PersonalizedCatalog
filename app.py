@@ -93,6 +93,17 @@ def projects():
 def items():
     return render_template("items.html")
 
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+        confirm = request.form.get("confirm")
+        # handle registration
+        return redirect("/")
+    else:
+        return render_template("register.html")
+
 with app.app_context():
     db.create_all()
 app.run(debug=True)
