@@ -1,0 +1,11 @@
+{% extends "index.html" %}
+{% block title %} Create Item {% endblock %}
+{% block content %}
+<form method="POST" action="/create_item_submit">
+    <div class="form-group">
+        <label for="item_name">Name</label>
+        <input type="text" name="item_name" placeholder="Enter name">
+    </div>
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}

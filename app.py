@@ -89,9 +89,27 @@ def home():
 def projects():
     return render_template("projects.html")
 
+@app.route("/create_project")
+def create_project():
+    return render_template("create_project.html")
+
+@app.route("/create_project_submit", methods=["POST"])
+def create_project_submit():
+    # handle form submission
+    return redirect("/projects")
+
 @app.route("/items")
 def items():
     return render_template("items.html")
+
+@app.route("/create_item")
+def create_item():
+    return render_template("create_item.html")
+
+@app.route("/create_item_submit", methods=["POST"])
+def create_item_submit():
+    # handle form submission
+    return redirect("/items")
 
 with app.app_context():
     db.create_all()
