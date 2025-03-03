@@ -36,10 +36,3 @@ table tr td{
     padding: 4px;
 }
 
-ProductNotes{
-    color: black;
-    font-size: 32px;
-    font-family: Inter;
-    font-weight: 600;
-    word-wrap: break-word
-}
