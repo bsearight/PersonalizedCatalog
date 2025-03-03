@@ -1,42 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Items</title>
-    <link href="/static/style.css" rel="stylesheet">
+{% extends "index.html" %}
+{% block title %} Items {% endblock %}
+{% block content %}
+<img style="width: 657px; height: 536px; border-radius: 16px" src="https://placehold.co/657x536" />
+<div style="width: 430px; height: 490px">
+    <span style="color: black; font-size: 32px; font-family: Inter; font-weight: 600; word-wrap: break-word">Product Title<br/>
+        <br/>Information:<br/></span>
+    <span style="color: black; font-size: 24px; font-family: Inter; font-weight: 600; word-wrap: break-word">Category: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.<br/>
+    <br/>Cost:</span><span style="color: black; font-size: 32px; font-family: Inter; font-weight: 600; word-wrap: break-word"> </span>
+    <span style="color: black; font-size: 24px; font-family: Inter; font-weight: 600; word-wrap: break-word">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. <br/>
+    <br/>Rating: <br/></span>
+    <span style="color: black; font-size: 32px; font-family: Inter; font-weight: 600; word-wrap: break-word"><br/></span>
+    <span style="color: black; font-size: 24px; font-family: Inter; font-weight: 600; word-wrap: break-word">Link to purchase: www.url.com</span>
+</div>
 
-</head>
-<body>
-    <nav>
-      <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="projects.html">Projects</a></li>
-        </ul>
+<div style="width: 485px; height: 287px">
+    <span style="color: black; font-size: 32px; font-family: Inter; font-weight: 600; word-wrap: break-word">Product Description<br/></span>
+    <span style="color: black; font-size: 24px; font-family: Inter; font-weight: 600; word-wrap: break-word">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. </span>
+</div>
 
-    </nav>
-    <img style="width: 657px; height: 536px; border-radius: 16px" src="https://placehold.co/657x536" />
-    <div style="width: 430px; height: 490px">
-        <span style="color: black; font-size: 32px; font-family: Inter; font-weight: 600; word-wrap: break-word">Product Title<br/>
-            <br/>Information:<br/></span>
-        <span style="color: black; font-size: 24px; font-family: Inter; font-weight: 600; word-wrap: break-word">Category: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.<br/>
-        <br/>Cost:</span><span style="color: black; font-size: 32px; font-family: Inter; font-weight: 600; word-wrap: break-word"> </span>
-        <span style="color: black; font-size: 24px; font-family: Inter; font-weight: 600; word-wrap: break-word">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. <br/>
-        <br/>Rating: <br/></span>
-        <span style="color: black; font-size: 32px; font-family: Inter; font-weight: 600; word-wrap: break-word"><br/></span>
-        <span style="color: black; font-size: 24px; font-family: Inter; font-weight: 600; word-wrap: break-word">Link to purchase: www.url.com</span>
-    </div>
-
-    <div style="width: 485px; height: 287px">
-        <span style="color: black; font-size: 32px; font-family: Inter; font-weight: 600; word-wrap: break-word">Product Description<br/></span>
-        <span style="color: black; font-size: 24px; font-family: Inter; font-weight: 600; word-wrap: break-word">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. </span>
-    </div>
-
-    <div style="width: 374px; height: 291px"><span style="color: black; font-size: 32px; font-family: Inter; font-weight: 600; word-wrap: break-word">Product notes<br/></span>
-        <span style="color: black; font-size: 24px; font-family: Inter; font-weight: 600; word-wrap: break-word">Lorem ipsum dolor sit amet<br/>Aenean commodo ligula eget dolor<br/>Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes<br/>Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.<br/></span>
-    </div>
-
-
-
-    </body>
-
-</html>
+<div style="width: 374px; height: 291px"><span style="color: black; font-size: 32px; font-family: Inter; font-weight: 600; word-wrap: break-word">Product notes<br/></span>
+    <span style="color: black; font-size: 24px; font-family: Inter; font-weight: 600; word-wrap: break-word">Lorem ipsum dolor sit amet<br/>Aenean commodo ligula eget dolor<br/>Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes<br/>Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.<br/></span>
+</div>
+{% endblock %}
