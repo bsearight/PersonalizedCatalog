@@ -1,17 +1,17 @@
 body{
-    background-color: black;
-    color: white
+    background-color: #F3F3F4;
+    color: black
 }
 a{
-    color: white
+    color: black
 }
 nav{
-    background-color: black;
-    width: 50%;
+    background-color: #F3F3F4;
+    width: 100%;
 }
 nav ul{
     padding: 10px;
-    margin: 0px;
+    margin: 1px;
     list-style-type: none;
 }
 nav ul li{
@@ -19,13 +19,13 @@ nav ul li{
     padding: 5px;
 }
 nav ul li a:link, nav ul li a:visited{
-    color:lightgreen;
+    color:#283845;
 }
 nav ul li a:hover{
-    color: yellow;
+    color: #16425B;
 }
 nav ul li.selected{
-    background-color: darkblue;
+    background-color: #80A4ED;
 }
 table tr th{
     border-style: solid;
@@ -34,4 +34,12 @@ table tr th{
 table tr td{
     border-style: solid;
     padding: 4px;
+}
+
+ProductNotes{
+ color: black;
+ font-size: 32px;
+ font-family: Inter;
+ font-weight: 600;
+ word-wrap: break-word
 }
