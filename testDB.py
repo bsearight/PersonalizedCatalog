@@ -1,5 +1,4 @@
-from flask import Flask, render_template, redirect, request
-#from flask import *
+from flask import *
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin
 
@@ -83,19 +82,3 @@ class ProjectNotes(db.Model):
 @login_manager.user_loader
 def load_user(user_id):
     return LoginInfo.query.get(int(user_id))
-
-@app.route("/")
-def home():
-    return render_template("index.html")
-
-@app.route("/projects")
-def projects():
-    return render_template("projects.html")
-
-@app.route("/items")
-def items():
-    return render_template("items.html")
-
-with app.app_context():
-    db.create_all()
-app.run(debug=True)
