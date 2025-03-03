@@ -84,8 +84,6 @@ class ProjectNotes(db.Model):
 def load_user(user_id):
     return LoginInfo.query.get(int(user_id))
 
-app = Flask(__name__, static_url_path="/static")
-
 @app.route("/")
 def home():
     return render_template("index.html")
