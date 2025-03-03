@@ -1,8 +1,6 @@
 from flask import Flask, render_template, redirect, request
-#from flask import *
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin
-
 
 app = Flask(__name__, static_url_path="/static")
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///final.db'
@@ -20,7 +18,6 @@ class LoginInfo(db.Model, UserMixin):
     is_active = db.Column(db.Boolean, default=True)
     
     user_profile = db.relationship("UserProfile", backref="login_info", uselist=False)
-
 
 class UserProfile(db.Model):
     __tablename__ = 'user_profile'
