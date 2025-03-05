@@ -1,9 +1,9 @@
 from flask import Flask, render_template, redirect, request
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, UserMixin
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 
 app = Flask(__name__, static_url_path="/static")
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///final.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///catalog.db'
 app.config['SECRET_KEY'] = 'superLongSecretKeyForCookieManagement'
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
@@ -102,6 +102,19 @@ def view_project_id(project_id):
     }
     return render_template("view_project.html", project_details=project_details)
 
+@app.route("/create_project")
+def create_project():
+    return render_template("create_project.html")
+
+@app.route("/create_project_submit", methods=["POST"])
+def create_project_submit():
+    name = request.form["project_name"]
+    description = request.form["project_description"]
+    new_project = Project(title=name, description=description)
+    db.session.add(new_project)
+    db.session.commit()
+    return redirect("/projects")
+
 @app.route("/items")
 def items():
     return render_template("items.html")
@@ -137,6 +150,19 @@ def register():
             db.session.commit()
             return redirect("/")
     return render_template("register.html")
+
+@app.route("/create_item")
+def create_item():
+    return render_template("create_item.html")
+
+@app.route("/create_item_submit", methods=["POST"])
+def create_item_submit():
+    name = request.form["item_name"]
+    description = request.form["item_description"]
+    new_supply = Supply(name=name, description=description)
+    db.session.add(new_supply)
+    db.session.commit()
+    return redirect("/items")
 
 with app.app_context():
     db.create_all()
