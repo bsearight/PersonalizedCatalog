@@ -1,10 +1,7 @@
 {% extends "index.html" %}
 {% block title %} {{ item_details.name }} {% endblock %}
 {% block content %}
-<div>
-    <h1>{{ item_details.name }}</h1>
-</div>
-<div style="width: 430px; height: 490px"><span class="title">Product Title<br/><br/></span>
+<div style="width: 430px; height: 490px"><span class="title">{{ item_details.name }}<br/><br/></span>
 <img style="width: 657px; height: 536px; border-radius: 16px" src="https://placehold.co/657x536" />
 <div style="width: 485px; height: 287px"><span style="color: black; font-size: 32px; font-family: Inter; font-weight: 600; word-wrap: break-word">Product Description<br/></span>
     <span style="color: black; font-size: 24px; font-family: Inter; font-weight: 600; word-wrap: break-word">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
