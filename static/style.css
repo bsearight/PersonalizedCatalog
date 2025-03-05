@@ -1,5 +1,5 @@
 body{
-    background-color: #F3F3F4;
+    background-color:#F3F3F4;
     color: black
 }
 a{
@@ -36,10 +36,67 @@ table tr td{
     padding: 4px;
 }
 
-ProductNotes{
- color: black;
- font-size: 32px;
- font-family: Inter;
- font-weight: 600;
- word-wrap: break-word
+.title{
+    color: black;
+    font-size: 32px;
+    font-family: Inter;
+    font-weight: 600;
+    word-wrap: break-word
 }
+
+.iteminfo{
+    float: left;
+    color: black;
+    font-size: 24px;
+    font-family: Inter;
+    font-weight: 600;
+    word-wrap: break-word
+}
+
+.vertical-menu{
+    padding: 5px;
+    background-color: #F3F3F4;
+    width: 300px;
+    overflow-y: scroll;
+    height: 110px;
+}
+
+progress[value] {
+  color: #63B0CD;
+  background: #D9F0FF;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  width: 200px;
+  margin: 0 10px;
+  border-radius: 10em;
+  background: var(background);
+}
+progress[value]::-webkit-progress-bar {
+  border-radius: 10px;
+  background: var(background);
+}
+progress[value]::-webkit-progress-value {
+  border-radius: 10px;
+  background: var(color);
+}
+progress[value]::-moz-progress-bar {
+  border-radius: 10px;
+  background: var(color);
+}
+
+.projectmaterials{
+    width: 228px;
+    height: 34px;
+    color: black;
+    font-size: 24px;
+    font-family: Inter;
+    font-weight: 500;
+    line-height: 24px;
+    word-wrap: break-word
+}
+
+
+

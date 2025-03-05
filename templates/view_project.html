@@ -1,0 +1,37 @@
+{% extends "index.html" %}
+{% block title %} {{ project_details.name }} {% endblock %}
+{% block content %}
+<div>
+    <h1>{{ project_details.name }}</h1>
+    <p>{{ project_details.description }}</p>
+</div>
+<img style="width: 750px; height: 476px; border-radius: 12px" src="https://placehold.co/750x476" />
+
+
+<div class="vertical-menu">
+ <dl>
+  <dt>Project Step</dt>
+  <dt>Project Step</dt>
+  <dt>Project Step</dt>
+  <dt>Project Step</dt>
+  <dt>Project Step</dt>
+  <dt>Project Step</dt>
+ </dl>
+</div>
+
+<label>Project Progress: <progress value = '50' max = '100'>50%</progress></label>
+
+<div class= "projectmaterials">Project Materials</div>
+<dl>
+  <dt>Material</dt>
+    <dd> material description</dd>
+  <dt>Material</dt>
+    <dd> material description</dd>
+  <dt>Material</dt>
+    <dd> material description</dd>
+  <dt>Material</dt>
+    <dd> material description</dd>
+  <dt>Material</dt>
+    <dd> material description</dd>
+</dl>
+{% endblock %}

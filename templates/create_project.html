@@ -1,0 +1,19 @@
+{% extends "index.html" %}
+{% block title %} Create Project {% endblock %}
+{% block content %}
+<h1>Create Project</h1>
+<form method="POST" action="/create_project_submit">
+    <hr>
+    <div class="form-group">
+        <label for="project_name">Name</label>
+        <input type="text" name="project_name" placeholder="Enter name" required>
+    </div>
+    <hr>
+    <div class="form-group">
+        <label for="project_description">Description</label>
+        <textarea name="project_description" placeholder="Enter description" required></textarea>
+    </div>
+    <hr>
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}
