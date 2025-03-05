@@ -36,25 +36,67 @@ table tr td{
     padding: 4px;
 }
 
-.vertical-menu {
-  width: 200px; /* Set a width if you like */
+.title{
+    color: black;
+    font-size: 32px;
+    font-family: Inter;
+    font-weight: 600;
+    word-wrap: break-word
 }
 
-.vertical-menu a {
-  background-color: #eee; /* Grey background color */
-  color: black; /* Black text color */
-  display: block; /* Make the links appear below each other */
-  padding: 12px; /* Add some padding */
-  text-decoration: none; /* Remove underline from links */
+.iteminfo{
+    float: left;
+    color: black;
+    font-size: 24px;
+    font-family: Inter;
+    font-weight: 600;
+    word-wrap: break-word
 }
 
-.vertical-menu a:hover {
-  background-color: #ccc; /* Dark grey background on mouse-over */
+.vertical-menu{
+    padding: 5px;
+    background-color: #F3F3F4;
+    width: 300px;
+    overflow-y: scroll;
+    height: 110px;
 }
 
-.vertical-menu a.active {
-  background-color: #04AA6D; /* Add a green color to the "active/current" link */
-  color: white;
+progress[value] {
+  color: #63B0CD;
+  background: #D9F0FF;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  width: 200px;
+  margin: 0 10px;
+  border-radius: 10em;
+  background: var(background);
 }
+progress[value]::-webkit-progress-bar {
+  border-radius: 10px;
+  background: var(background);
+}
+progress[value]::-webkit-progress-value {
+  border-radius: 10px;
+  background: var(color);
+}
+progress[value]::-moz-progress-bar {
+  border-radius: 10px;
+  background: var(color);
+}
+
+.projectmaterials{
+    width: 228px;
+    height: 34px;
+    color: black;
+    font-size: 24px;
+    font-family: Inter;
+    font-weight: 500;
+    line-height: 24px;
+    word-wrap: break-word
+}
+
 
 
