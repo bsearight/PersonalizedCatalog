@@ -1,9 +1,9 @@
 from flask import Flask, render_template, redirect, request
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, UserMixin
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 
 app = Flask(__name__, static_url_path="/static")
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///final.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///catalog.db'
 app.config['SECRET_KEY'] = 'superLongSecretKeyForCookieManagement'
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
@@ -95,7 +95,11 @@ def create_project():
 
 @app.route("/create_project_submit", methods=["POST"])
 def create_project_submit():
-    # handle form submission
+    name = request.form["project_name"]
+    description = request.form["project_description"]
+    new_project = Project(title=name, description=description)
+    db.session.add(new_project)
+    db.session.commit()
     return redirect("/projects")
 
 @app.route("/items")
@@ -108,7 +112,11 @@ def create_item():
 
 @app.route("/create_item_submit", methods=["POST"])
 def create_item_submit():
-    # handle form submission
+    name = request.form["item_name"]
+    description = request.form["item_description"]
+    new_supply = Supply(name=name, description=description)
+    db.session.add(new_supply)
+    db.session.commit()
     return redirect("/items")
 
 with app.app_context():

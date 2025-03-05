@@ -4,7 +4,11 @@
 <form method="POST" action="/create_project_submit">
     <div class="form-group">
         <label for="project_name">Name</label>
-        <input type="text" name="project_name" placeholder="Enter name">
+        <input type="text" name="project_name" placeholder="Enter name" required>
+    </div>
+    <div class="form-group">
+        <label for="project_description">Description</label>
+        <textarea name="project_description" placeholder="Enter description" required></textarea>
     </div>
     <button type="submit">Submit</button>
 </form>
