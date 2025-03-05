@@ -95,14 +95,22 @@ def items():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    ## WARNING: THIS IS NOT SECURED. DO NOT USE IN PRODUCTION
     if request.method == "POST":
-        username = request.form.get("username")
-        password = request.form.get("password")
-        confirm = request.form.get("confirm")
-        # handle registration
-        return redirect("/")
-    else:
-        return render_template("register.html")
+        username = request.form["username"]
+        user = LoginInfo.query.filter_by(username=username).first()
+        if user:
+            return render_template("register.html")
+        else:
+            password = request.form["password"]
+            cpassword = request.form["confirm"]
+            if password != cpassword:
+                return redirect("/")
+            user = LoginInfo(username=username, password=password)
+            db.session.add(user)
+            db.session.commit()
+            return redirect("/")
+    return render_template("register.html")
 
 with app.app_context():
     db.create_all()
