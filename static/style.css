@@ -44,6 +44,53 @@ table tr td{
     word-wrap: break-word
 }
 
+.itemicon{
+    width: 294px;
+    height: 306px;
+    border-radius: 12px;
+    overflow: hidden;
+    justify-content: flex-start;
+    align-items: flex-start;
+    display: inline-flex;
+}
+.item{
+    flex: 1 1 0;
+    padding: 16px;
+    background: white;
+    border-radius: 8px;
+    border: 1px #D9D9D9 solid;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 16px;
+    display: inline-flex;
+}
+.rect{
+    width:262;
+    height:247;
+    fill:#E3E3E3;
+}
+
+.rect2{
+    width:262;
+    height:247;
+    fill:url(#pattern0_8_21);
+    fill-opacity:0.2;
+}
+
+.image{
+ width:160;
+ height:160;
+}
+
+.item2{
+    height: 80px;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start; gap: 8px;
+    display: flex;
+}
+
 .iteminfo{
     float: left;
     color: black;
