@@ -1,10 +1,15 @@
+from sqlite3 import Date
+import os
+from werkzeug.utils import secure_filename
 from flask import Flask, render_template, redirect, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 
 app = Flask(__name__, static_url_path="/static")
+UPLOAD_FOLDER = os.path.join(app.root_path, "static", "images")
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///catalog.db'
 app.config['SECRET_KEY'] = 'superLongSecretKeyForCookieManagement'
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 login_manager.init_app(app)
@@ -24,12 +29,10 @@ class User(db.Model, UserMixin):
 class Project(db.Model):
     __tablename__ = 'project'
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(255), nullable=False)
+    name = db.Column(db.String(255), nullable=False)
     description = db.Column(db.Text)
     image = db.Column(db.String(255))
-    date = db.Column(db.Date)
     notes = db.Column(db.Text)
-    status = db.Column(db.String(255))
     owner = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 class Supply(db.Model):
@@ -102,9 +105,11 @@ def view_project_id(project_id):
     if not project:
         return redirect("/projects")
     project_details = {
-        "id": project.project_id,
-        "name": project.title,
-        "description": project.description
+        "id": project.id,
+        "name": project.name,
+        "description": project.description,
+        "image": project.image,
+        "notes": project.notes,
     }
     return render_template("view_project.html", project_details=project_details)
 
@@ -116,7 +121,18 @@ def create_project():
 def create_project_submit():
     name = request.form["project_name"]
     description = request.form["project_description"]
-    database_insert(Project(title=name, description=description))
+    notes = request.form["project_notes"]
+    image = request.files['project_image']
+    image_path = ""
+    if image and image.filename:
+        filename = secure_filename(image.filename)
+        full_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        image.save(full_path)
+        # Save URL-friendly path in database:
+        image_path = f"/static/images/{filename}"
+    else:
+        image_path = ""
+    database_insert(Project(name=name, description=description, image=image_path, notes=notes, owner=current_user.id))
     return redirect("/projects")
 
 @app.route("/items")
@@ -134,9 +150,15 @@ def view_item_id(item_id):
     if not supply:
         return redirect("/items")
     item_details = {
-        "id": supply.supply_id,
+        "id": supply.id,
         "name": supply.name,
-        "description": supply.description
+        "description": supply.description,
+        "brand": supply.brand,
+        "purchase_link": supply.purchase_link,
+        "cost": supply.cost,
+        "rating": supply.rating,
+        "notes": supply.notes,
+        "image": supply.image
     }
     return render_template("view_item.html", item_details=item_details)
 
@@ -184,9 +206,26 @@ def create_item():
 
 @app.route("/create_item_submit", methods=["POST"])
 def create_item_submit():
-    name = request.form["item_name"]
-    description = request.form["item_description"]
-    database_insert(Supply(name=name, description=description))
+    name = request.form.get("item_name", "Unnamed Item")
+    description = request.form.get("item_description", "No Description")
+    brand = request.form.get("item_brand", "No Brand")
+    purchase_link = request.form.get("item_purchase_link", "No Purchase Link")
+    cost_raw = request.form.get("item_cost", "0")
+    rating_raw = request.form.get("item_rating", "0")
+    cost = float(cost_raw) if cost_raw.strip() else 0.0
+    rating = float(rating_raw) if rating_raw.strip() else 0.0
+    notes = request.form.get("item_notes", "No Notes")
+    image = request.files['item_image']
+    image_path = ""
+    if image and image.filename:
+        filename = secure_filename(image.filename)
+        full_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        image.save(full_path)
+        # Save URL-friendly path in database:
+        image_path = f"/static/images/{filename}"
+    else:
+        image_path = ""
+    database_insert(Supply(name=name, description=description, brand=brand, purchase_link=purchase_link, cost=cost, rating=rating, notes=notes, image=image_path, owner=current_user.id))
     return redirect("/items")
 
 with app.app_context():

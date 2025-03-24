@@ -5,6 +5,10 @@
 <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <div>
+  <img src="{{ project_details.image }}" alt="Project Image" />
+  <h1>Name: {{ project_details.name }}</h1>
+  <h2>Description: {{ project_details.description }}</h2>
+  <h3>Notes: {{ project_details.notes }}</h3>
     <h1>{{ project_details.name }}</h1>
     <p>{{ project_details.description }}</p>
 </div>

@@ -1,23 +1,14 @@
 {% extends "index.html" %}
 {% block title %} {{ item_details.name }} {% endblock %}
 {% block content %}
-<div style="width: 430px; height: 490px"><span class="title">{{ item_details.name }}<br/><br/></span>
-<img style="width: 657px; height: 536px; border-radius: 16px" src="https://placehold.co/657x536" />
-<div style="width: 485px; height: 287px"><span style="color: black; font-size: 32px; font-family: Inter; font-weight: 600; word-wrap: break-word">Product Description<br/></span>
-    <span style="color: black; font-size: 24px; font-family: Inter; font-weight: 600; word-wrap: break-word">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
-        nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. </span></div>
-<div style="width: 374px; height: 291px"><span style="color: black; font-size: 32px; font-family: Inter; font-weight: 600; word-wrap: break-word">Product notes<br/></span>
-    <span style="color: black; font-size: 24px; font-family: Inter; font-weight: 600; word-wrap: break-word">Lorem ipsum dolor sit amet<br/>Aenean commodo ligula eget dolor<br/>Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes
-        <br/>Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.<br/>
-    </span>
-</div>
-<div style="width: 430px; height: 490px"><span style="color: black; font-size: 32px; font-family: Inter; font-weight: 600; word-wrap: break-word">Product Title<br/><br/>Information:<br/></span>
-    <span style="color: black; font-size: 24px; font-family: Inter; font-weight: 600; word-wrap: break-word">Category: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. <br/><br/>Cost:</span>
-    <span style="color: black; font-size: 32px; font-family: Inter; font-weight: 600; word-wrap: break-word"> </span>
-    <span style="color: black; font-size: 24px; font-family: Inter; font-weight: 600; word-wrap: break-word">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. <br/><br/>Rating: <br/></span>
-    <span style="color: black; font-size: 32px; font-family: Inter; font-weight: 600; word-wrap: break-word"><br/></span>
-    <label for="productpage">Link to Purchase:</label>
-    <input type="url" id="productpage" name="productpage">
-</div>
+<div>
+    <img src="{{ item_details.image }}" alt="{{ item_details.image }}" />
+    <h1>{{ item_details.name }}</h1>
+    <h2>Description: {{ item_details.description }}</h2>
+    <h3>Brand: {{ item_details.brand }}</h3>
+    <h3>Purchase Link: <a href="{{ item_details.purchase_link }}">{{ item_details.purchase_link }}</a></h3>
+    <h3>Cost: ${{ item_details.cost }}</h3>
+    <h3>Rating: {{ item_details.rating }}</h3>
+    <h3>Notes: {{ item_details.notes }}</h3>
 </div>
 {% endblock %}
