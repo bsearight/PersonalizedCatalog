@@ -44,106 +44,141 @@ table tr td{
     word-wrap: break-word
 }
 
-.itemicon{
-    width: 294px;
-    height: 306px;
-    border-radius: 12px;
-    overflow: hidden;
-    justify-content: flex-start;
-    align-items: flex-start;
-    display: inline-flex;
-}
-.item{
-    flex: 1 1 0;
-    padding: 16px;
-    background: white;
-    border-radius: 8px;
-    border: 1px #D9D9D9 solid;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    gap: 16px;
-    display: inline-flex;
-}
-.rect{
-    width:262;
-    height:247;
-    fill:#E3E3E3;
+
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
 }
 
-.rect2{
-    width:262;
-    height:247;
-    fill:url(#pattern0_8_21);
-    fill-opacity:0.2;
+@media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+    }
 }
 
-.image{
- width:160;
- height:160;
+.b-example-vr {
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 100vh;
 }
 
-.item2{
-    height: 80px;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start; gap: 8px;
+.bi {
+    vertical-align: -.125em;
+    fill: currentColor;
+}
+
+.nav-scroller {
+    position: relative;
+    z-index: 2;
+    height: 2.75rem;
+    overflow-y: hidden;
+}
+
+.nav-scroller .nav {
     display: flex;
-}
-
-.iteminfo{
-    float: left;
-    color: black;
-    font-size: 24px;
-    font-family: Inter;
-    font-weight: 600;
-    word-wrap: break-word
-}
-
-.vertical-menu{
-    padding: 5px;
-    background-color: #F3F3F4;
-    width: 300px;
-    overflow-y: scroll;
-    height: 110px;
-}
-
-progress[value] {
-  color: #63B0CD;
-  background: #D9F0FF;
-
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  border: none;
-  width: 200px;
-  margin: 0 10px;
-  border-radius: 10em;
-  background: var(background);
-}
-progress[value]::-webkit-progress-bar {
-  border-radius: 10px;
-  background: var(background);
-}
-progress[value]::-webkit-progress-value {
-  border-radius: 10px;
-  background: var(color);
-}
-progress[value]::-moz-progress-bar {
-  border-radius: 10px;
-  background: var(color);
-}
-
-.projectmaterials{
-    width: 228px;
-    height: 34px;
-    color: black;
-    font-size: 24px;
-    font-family: Inter;
-    font-weight: 500;
-    line-height: 24px;
-    word-wrap: break-word
+    flex-wrap: nowrap;
+    padding-bottom: 1rem;
+    margin-top: -1px;
+    overflow-x: auto;
+    text-align: center;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
 }
 
 
+:root {
+  --line-border-fill: #3498db;
+  --line-border-empty: #383838;
 
+}
+
+* {
+  box-sizing: border-box;
+}
+
+
+.container {
+  text-align: left;
+}
+
+.progress-container {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin-bottom: 30px;
+  max-width: 100%;
+  width: 350px;
+}
+
+.progress-container::before {
+  content: '';
+  background-color: var(--line-border-empty);
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  height: 4px;
+  width: 100%;
+  z-index: -1;
+}
+
+.progress {
+  background-color: var(--line-border-fill);
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  height: 4px;
+  width: 0%;
+  z-index: -1;
+  transition: 0.4s ease;
+}
+
+.circle {
+  background-color: #f1f1f1;
+  color:#e2e2e2;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid var(--line-border-empty);
+  transition: 0.4s ease;
+}
+
+.circle.active {
+  border-color: var(--line-border-fill);
+}
+
+.btn {
+  background-color: var(--line-border-fill);
+  color: #fff;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 8px 30px;
+  margin: 5px;
+  font-size: 14px;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn:focus {
+  outline: 0;
+}
+
+.btn:disabled {
+  background-color: var(--line-border-empty);
+  cursor: not-allowed;
+}
+
+h4{
+    padding-top: 25px;
+}
