@@ -128,7 +128,6 @@ def create_project_submit():
         filename = secure_filename(image.filename)
         full_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         image.save(full_path)
-        # Save URL-friendly path in database:
         image_path = f"/static/images/{filename}"
     else:
         image_path = ""
