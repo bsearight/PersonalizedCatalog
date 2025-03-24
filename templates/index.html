@@ -12,10 +12,9 @@
     <h1>Personalized Catalog</h1>
     <nav>
         <ul>
-            <li><a href="/">Home</a></li>
             {% if user.is_authenticated %}
             <li><a href="/logout">Logout</a></li>
-            <li><a href="/projects">Projects</a></li>
+            <li><a href="/">Projects</a></li>
             <li><a href="/items">Items</a></li>
             <li><a href="/create_project">Create Project</a></li>
             <li><a href="/create_item">Create Item</a></li>
@@ -179,7 +178,10 @@
         </div>
     </div>
 </div>
-    {% endif  %}
+    {% else %}
+    <h1>Welcome to the Personalized Catalog!</h1>
+    <p>Please log in or register to access your projects and items.</p>
+    {% endif %}
     {% endblock %}
 </body>
 </html>
