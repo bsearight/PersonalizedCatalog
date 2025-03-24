@@ -13,11 +13,11 @@
     <nav>
         <ul>
             {% if user.is_authenticated %}
-            <li><a href="/logout">Logout</a></li>
             <li><a href="/">Projects</a></li>
             <li><a href="/items">Items</a></li>
             <li><a href="/create_project">Create Project</a></li>
             <li><a href="/create_item">Create Item</a></li>
+            <li><a href="/logout">Logout</a></li>
             <li><p>Welcome, {{ user.username }}</p></li>
             {% else %}
             <li><a href="/login">Login</a></li>
