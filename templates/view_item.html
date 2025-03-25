@@ -9,6 +9,26 @@
     <h3>Purchase Link: <a href="{{ item_details.purchase_link }}">{{ item_details.purchase_link }}</a></h3>
     <h3>Cost: ${{ item_details.cost }}</h3>
     <h3>Rating: {{ item_details.rating }}</h3>
+    <div class="">
+    <div class="star-rating">
+        <input type="radio" name="rating" value="1"><i></i>
+        <input type="radio" name="rating" value="2"><i></i>
+        <input type="radio" name="rating" value="3"><i></i>
+        <input type="radio" name="rating" value="4"><i></i>
+        <input type="radio" name="rating" value="5"><i></i>
+    </div>
+    <div class="mt-3">
+        <span id="rating-value" class="h4">0</span> out of 5 stars
+    </div>
+</div>
+    <script>
+     const starRating = document.querySelector('.star-rating');
+        const ratingValue = document.getElementById('rating-value');
+
+        starRating.addEventListener('change', function(e) {
+            ratingValue.textContent = e.target.value;
+        });
+    </script>
     <h3>Notes: {{ item_details.notes }}</h3>
 </div>
 {% endblock %}
