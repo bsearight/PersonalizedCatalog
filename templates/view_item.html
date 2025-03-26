@@ -9,20 +9,23 @@
     <h3>Purchase Link: <a href="{{ item_details.purchase_link }}">{{ item_details.purchase_link }}</a></h3>
     <h3>Cost: ${{ item_details.cost }}</h3>
     <h3>Rating: {{ item_details.rating }}</h3>
+    <!-- Change this to display the star rating (inputs are unneeded).
+    I've disabled the inputs but it needs to show the filled out stars based on the fetched data and I dunno CSS
+    It should be possible to eliminate the JS but I really don't know-->
     <div class="">
-    <div class="star-rating">
-        <input type="radio" name="rating" value="1"><i></i>
-        <input type="radio" name="rating" value="2"><i></i>
-        <input type="radio" name="rating" value="3"><i></i>
-        <input type="radio" name="rating" value="4"><i></i>
-        <input type="radio" name="rating" value="5"><i></i>
+        <div class="star-rating">
+            <input type="radio" name="item_rating" value="1" disabled><i></i>
+            <input type="radio" name="item_rating" value="2" disabled><i></i>
+            <input type="radio" name="item_rating" value="3" disabled><i></i>
+            <input type="radio" name="item_rating" value="4" disabled><i></i>
+            <input type="radio" name="item_rating" value="5" disabled><i></i>
+        </div>
+        <div class="mt-3">
+            <span id="rating-value" class="h4">{{ item_details.rating }}</span> out of 5 stars
+        </div>
     </div>
-    <div class="mt-3">
-        <span id="rating-value" class="h4">0</span> out of 5 stars
-    </div>
-</div>
     <script>
-     const starRating = document.querySelector('.star-rating');
+        var starRating = document.querySelector('.star-rating');
         const ratingValue = document.getElementById('rating-value');
 
         starRating.addEventListener('change', function(e) {

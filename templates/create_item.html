@@ -18,8 +18,27 @@
     <label for="item_cost">Cost</label>
     <input type="number" name="item_cost" placeholder="Enter cost" min="0" step="0.01">
     <hr>
-    <label for="item_rating">Rating</label>
-    <input type="number" name="item_rating" placeholder="Enter rating" min="1" max="5">
+    <!-- Consider changing this to use an outlined star for mouse hover specifically -->
+    <div class="">
+        <div class="star-rating">
+            <input type="radio" name="item_rating" value="1"><i></i>
+            <input type="radio" name="item_rating" value="2"><i></i>
+            <input type="radio" name="item_rating" value="3"><i></i>
+            <input type="radio" name="item_rating" value="4"><i></i>
+            <input type="radio" name="item_rating" value="5"><i></i>
+        </div>
+        <div class="mt-3">
+            <span id="rating-value" class="h4">0</span> out of 5 stars
+        </div>
+    </div>
+    <script>
+        const starRating = document.querySelector('.star-rating');
+        const ratingValue = document.getElementById('rating-value');
+
+        starRating.addEventListener('change', function(e) {
+            ratingValue.textContent = e.target.value;
+        });
+    </script>
     <hr>
     <label for="item_notes">Notes</label>
     <textarea name="item_notes" placeholder="Enter notes"></textarea>

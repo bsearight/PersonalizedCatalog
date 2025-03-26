@@ -155,7 +155,7 @@ def view_item_id(item_id):
         "brand": supply.brand,
         "purchase_link": supply.purchase_link,
         "cost": supply.cost,
-        "rating": supply.rating,
+        "rating": int(supply.rating),
         "notes": supply.notes,
         "image": supply.image
     }
