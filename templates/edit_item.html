@@ -25,7 +25,11 @@
     <textarea name="item_notes" placeholder="Enter notes">{{ item_details.notes }}</textarea>
     <hr>
     <label for="item_image">Image</label>
-    <input type="file" name="item_image" accept="image/*" value="{{ item_details.image }}">
+    <br>
+    <img src="{{ item_details.image }}" alt="[Item Image]" style="max-width: 200px; max-height: 200px;">
+    <br>
+    <input type="file" name="item_image" accept="image/*">
+    <input type="hidden" name="item_image_path" value="{{ item_details.image }}">
     <hr>
     <button type="submit">Submit</button>
 </form>
