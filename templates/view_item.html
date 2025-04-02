@@ -8,30 +8,11 @@
     <h3>Brand: {{ item_details.brand }}</h3>
     <h3>Purchase Link: <a href="{{ item_details.purchase_link }}">{{ item_details.purchase_link }}</a></h3>
     <h3>Cost: ${{ item_details.cost }}</h3>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    {% for i in range(1, 6) %}
+        <span class="fa fa-star {% if i <= item_details.rating %}checked{% endif %}"></span>
+    {% endfor %}
     <h3>Rating: {{ item_details.rating }}</h3>
-    <!-- Change this to display the star rating (inputs are unneeded).
-    I've disabled the inputs but it needs to show the filled out stars based on the fetched data and I dunno CSS
-    It should be possible to eliminate the JS but I really don't know-->
-    <div class="">
-        <div class="star-rating">
-            <input type="radio" name="item_rating" value="1" disabled><i></i>
-            <input type="radio" name="item_rating" value="2" disabled><i></i>
-            <input type="radio" name="item_rating" value="3" disabled><i></i>
-            <input type="radio" name="item_rating" value="4" disabled><i></i>
-            <input type="radio" name="item_rating" value="5" disabled><i></i>
-        </div>
-        <div class="mt-3">
-            <span id="rating-value" class="h4">{{ item_details.rating }}</span> out of 5 stars
-        </div>
-    </div>
-    <script>
-        var starRating = document.querySelector('.star-rating');
-        const ratingValue = document.getElementById('rating-value');
-
-        starRating.addEventListener('change', function(e) {
-            ratingValue.textContent = e.target.value;
-        });
-    </script>
     <h3>Notes: {{ item_details.notes }}</h3>
     <button type="button" class="collapsible">Notes</button>
     <div class="content">
