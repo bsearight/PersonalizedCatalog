@@ -100,6 +100,27 @@ def database_getSupply(supply_id):
         return supply
     else:
         return None
+def database_findSupply(supply_name):
+    supplies = Supply.query.filter(Supply.name.like(f"%{supply_name}%")).all()
+    return supplies if supplies else None
+def database_findProject(project_name):
+    projects = Project.query.filter(Project.name.like(f"%{project_name}%")).all()
+    return projects if projects else None
+
+@app.route("/search")
+def search():
+    param = request.args.get('query', '')
+    search_type = request.args.get('type', '')
+    if search_type == "item":
+        results = database_findSupply(param)
+    elif search_type == "project":
+        results = database_findProject(param)
+    else:
+        results = []
+    if not results:
+        results = []
+
+    return render_template("search_results.html", results=results, search_type=search_type)
 
 @login_manager.user_loader
 def load_user(user_id):
