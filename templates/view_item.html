@@ -1,6 +1,7 @@
 {% extends "index.html" %}
 {% block title %} {{ item_details.name }} {% endblock %}
 {% block content %}
+<button onclick="history.back()" class = "previous round">Back</button>
 <div>
     <img src="{{ item_details.image }}" alt="{{ item_details.image }}" />
     <h1>{{ item_details.name }}</h1>
