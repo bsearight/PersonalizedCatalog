@@ -2,6 +2,7 @@
 {% block title %} Edit Item {% endblock %}
 {% block content %}
 <h1>Edit Item</h1>
+<button onclick="history.back()" class = "previous round">Back</button>
 <form method="POST" action="/edit_item/{{ item_details.id }}" enctype="multipart/form-data">
     <label for="item_name">Name</label>
     <input type="text" name="item_name" placeholder="Enter name" value="{{ item_details.name }}" required>
