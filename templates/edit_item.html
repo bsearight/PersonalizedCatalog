@@ -1,0 +1,36 @@
+{% extends "index.html" %}
+{% block title %} Edit Item {% endblock %}
+{% block content %}
+<h1>Edit Item</h1>
+<form method="POST" action="/edit_item/{{ item_details.id }}" enctype="multipart/form-data">
+    <label for="item_name">Name</label>
+    <input type="text" name="item_name" placeholder="Enter name" value="{{ item_details.name }}" required>
+    <hr>
+    <label for="item_description">Description</label>
+    <input type="text" name="item_description" placeholder="Enter description" value="{{ item_details.description }}" required>
+    <hr>
+    <label for="item_brand">Brand</label>
+    <input type="text" name="item_brand" placeholder="Enter brand" value="{{ item_details.brand }}">
+    <hr>
+    <label for="item_purchase_link">Purchase Link</label>
+    <input type="url" name="item_purchase_link" placeholder="Enter purchase link" value="{{ item_details.purchase_link }}">
+    <hr>
+    <label for="item_cost">Cost</label>
+    <input type="number" name="item_cost" placeholder="Enter cost" min="0" step="0.01" value="{{ item_details.cost }}">
+    <hr>
+    <label for="item_rating">Rating</label>
+    <input type="number" name="item_rating" placeholder="Enter rating" min="1" max="5" value="{{ item_details.rating }}">
+    <hr>
+    <label for="item_notes">Notes</label>
+    <textarea name="item_notes" placeholder="Enter notes">{{ item_details.notes }}</textarea>
+    <hr>
+    <label for="item_image">Image</label>
+    <br>
+    <img src="{{ item_details.image }}" alt="[Item Image]" style="max-width: 200px; max-height: 200px;">
+    <br>
+    <input type="file" name="item_image" accept="image/*">
+    <input type="hidden" name="item_image_path" value="{{ item_details.image }}">
+    <hr>
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}

@@ -58,11 +58,29 @@ def database_insert(data):
     db.session.commit()
 def database_update(data):
     if isinstance(data, User):
-        db.session.merge(data)
+        user = User.query.filter_by(id=data.id).first()
+        if user:
+            user.username = data.username
+            user.password = data.password
     elif isinstance(data, Project):
-        db.session.merge(data)
+        project = Project.query.filter_by(id=data.id).first()
+        if project:
+            project.name = data.name
+            project.description = data.description
+            project.image = data.image
+            project.notes = data.notes
+            project.owner = data.owner
     elif isinstance(data, Supply):
-        db.session.merge(data)
+        item = Supply.query.filter_by(id=data.id).first()
+        if item:
+            item.name = data.name
+            item.description = data.description
+            item.brand = data.brand
+            item.purchase_link = data.purchase_link
+            item.cost = data.cost
+            item.rating = data.rating
+            item.notes = data.notes
+            item.image = data.image
     db.session.commit()
 def database_getProjects():
     projects = Project.query.all()
@@ -113,26 +131,59 @@ def view_project_id(project_id):
     }
     return render_template("view_project.html", project_details=project_details)
 
-@app.route("/create_project")
+@app.route("/create_project", methods=["GET", "POST"])
 def create_project():
-    return render_template("create_project.html")
-
-@app.route("/create_project_submit", methods=["POST"])
-def create_project_submit():
-    name = request.form["project_name"]
-    description = request.form["project_description"]
-    notes = request.form["project_notes"]
-    image = request.files['project_image']
-    image_path = ""
-    if image and image.filename:
-        filename = secure_filename(image.filename)
-        full_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        image.save(full_path)
-        image_path = f"/static/images/{filename}"
-    else:
+    if request.method == "POST":
+        name = request.form.get("project_name", "Unnamed Project")
+        description = request.form.get("project_description", "No Description")
+        notes = request.form.get("project_notes", "No Notes")
+        image = request.files['project_image']
         image_path = ""
-    database_insert(Project(name=name, description=description, image=image_path, notes=notes, owner=current_user.id))
-    return redirect("/projects")
+        if image and image.filename:
+            filename = secure_filename(image.filename)
+            full_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            image.save(full_path)
+            image_path = f"/static/images/{filename}"
+        else:
+            image_path = ""
+        database_insert(Project(name=name, description=description, image=image_path, notes=notes, owner=current_user.id))
+        return redirect("/projects")
+    else:
+        return render_template("create_project.html")
+    
+@app.route("/edit_project/<project_id>", methods=["GET", "POST"])
+def edit_project(project_id):
+    if request.method == "POST":
+        name = request.form.get("project_name", "Unnamed Project")
+        description = request.form.get("project_description", "No Description")
+        notes = request.form.get("project_notes", "No Notes")
+        image_path_pre = request.form.get("project_image_path", "No Image")
+        image_path = ""
+        if image_path_pre and image_path_pre != "No Image":
+            image_path = image_path_pre
+        else:
+            image = request.files['project_image']
+            if image and image.filename:
+                filename = secure_filename(image.filename)
+                full_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                image.save(full_path)
+                image_path = f"/static/images/{filename}"
+            else:
+                image_path = ""
+        database_update(Project(id=project_id, name=name, description=description, image=image_path, notes=notes, owner=current_user.id))
+        return redirect("/projects")
+    else:
+        project = database_getProject(project_id)
+        if not project:
+            return redirect("/projects")
+        project_details = {
+            "id": project.id,
+            "name": project.name,
+            "description": project.description,
+            "image": project.image,
+            "notes": project.notes,
+        }
+        return render_template("edit_project.html", project_details=project_details)
 
 @app.route("/items")
 def items():
@@ -160,6 +211,77 @@ def view_item_id(item_id):
         "image": supply.image
     }
     return render_template("view_item.html", item_details=item_details)
+
+@app.route("/create_item", methods=["GET", "POST"])
+def create_item():
+    if request.method == "POST":
+        name = request.form.get("item_name", "Unnamed Item")
+        description = request.form.get("item_description", "No Description")
+        brand = request.form.get("item_brand", "No Brand")
+        purchase_link = request.form.get("item_purchase_link", "No Purchase Link")
+        cost_raw = request.form.get("item_cost", "0")
+        rating_raw = request.form.get("item_rating", "0")
+        cost = float(cost_raw) if cost_raw.strip() else 0.0
+        rating = float(rating_raw) if rating_raw.strip() else 0.0
+        notes = request.form.get("item_notes", "No Notes")
+        image = request.files['item_image']
+        image_path = ""
+        if image and image.filename:
+            filename = secure_filename(image.filename)
+            full_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            image.save(full_path)
+            image_path = f"/static/images/{filename}"
+        else:
+            image_path = ""
+        database_insert(Supply(name=name, description=description, brand=brand, purchase_link=purchase_link, cost=cost, rating=rating, notes=notes, image=image_path, owner=current_user.id))
+    else:
+        return render_template("create_item.html")
+    return redirect("/items")
+    
+@app.route("/edit_item/<item_id>", methods=["GET", "POST"])
+def edit_item(item_id):
+    supply = database_getSupply(item_id)
+    if not supply:
+        return redirect("/items")
+    if request.method == "POST":
+        name = request.form.get("item_name", "Unnamed Item")
+        description = request.form.get("item_description", "No Description")
+        brand = request.form.get("item_brand", "No Brand")
+        purchase_link = request.form.get("item_purchase_link", "No Purchase Link")
+        cost_raw = request.form.get("item_cost", "0")
+        rating_raw = request.form.get("item_rating", "0")
+        cost = float(cost_raw) if cost_raw.strip() else 0.0
+        rating = float(rating_raw) if rating_raw.strip() else 0.0
+        notes = request.form.get("item_notes", "No Notes")
+        image_path_pre = request.form.get("item_image_path", "No Image")
+        image_path = ""
+        if image_path_pre and image_path_pre != "No Image":
+            image_path = image_path_pre
+        else:
+            image = request.files['item_image']
+            image_path = ""
+            if image and image.filename:
+                filename = secure_filename(image.filename)
+                full_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                image.save(full_path)
+                image_path = f"/static/images/{filename}"
+            else:
+                image_path = ""
+        database_update(Supply(id=item_id, name=name, description=description, brand=brand, purchase_link=purchase_link, cost=cost, rating=rating, notes=notes, image=image_path))
+    else:
+        item_details = {
+            "id": supply.id,
+            "name": supply.name,
+            "description": supply.description,
+            "brand": supply.brand,
+            "purchase_link": supply.purchase_link,
+            "cost": supply.cost,
+            "rating": supply.rating,
+            "notes": supply.notes,
+            "image": supply.image
+        }
+        return render_template("edit_item.html", item_details=item_details)
+    return redirect("/items")
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -198,34 +320,6 @@ def login():
 def logout():
     logout_user()
     return redirect("/")
-
-@app.route("/create_item")
-def create_item():
-    return render_template("create_item.html")
-
-@app.route("/create_item_submit", methods=["POST"])
-def create_item_submit():
-    name = request.form.get("item_name", "Unnamed Item")
-    description = request.form.get("item_description", "No Description")
-    brand = request.form.get("item_brand", "No Brand")
-    purchase_link = request.form.get("item_purchase_link", "No Purchase Link")
-    cost_raw = request.form.get("item_cost", "0")
-    rating_raw = request.form.get("item_rating", "0")
-    cost = float(cost_raw) if cost_raw.strip() else 0.0
-    rating = float(rating_raw) if rating_raw.strip() else 0.0
-    notes = request.form.get("item_notes", "No Notes")
-    image = request.files['item_image']
-    image_path = ""
-    if image and image.filename:
-        filename = secure_filename(image.filename)
-        full_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        image.save(full_path)
-        # Save URL-friendly path in database:
-        image_path = f"/static/images/{filename}"
-    else:
-        image_path = ""
-    database_insert(Supply(name=name, description=description, brand=brand, purchase_link=purchase_link, cost=cost, rating=rating, notes=notes, image=image_path, owner=current_user.id))
-    return redirect("/items")
 
 with app.app_context():
     db.create_all()
