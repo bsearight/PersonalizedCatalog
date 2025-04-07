@@ -7,7 +7,7 @@
     {% if search_type == "project" %}
         {% for result in results %}
             <div class="result">
-                <a href="/view_project/{{ result.id }}" style="color: blue; font-weight: bold;">{{ result.name }}</a>
+                <a href="/view_project/{{ result.id }}" style="color: #283845; font-weight: bold;">{{ result.name }}</a>
                 <p>{{ result.description }}</p>
                 <img src="{{ result.image }}" alt="Image" style="max-width: 200px; max-height: 200px;">
                 <hr>
@@ -16,7 +16,7 @@
     {% elif search_type == "item" %}
         {% for result in results %}
             <div class="result">
-                <a href="/view_item/{{ result.id }}" style="color: green; font-weight: bold;">{{ result.name }}</a>
+                <a href="/view_item/{{ result.id }}" style="color: #16425B; font-weight: bold;">{{ result.name }}</a>
                 <p>{{ result.description }}</p>
                 <img src="{{ result.image }}" alt="Image" style="max-width: 200px; max-height: 200px;">
                 <hr>
@@ -27,7 +27,7 @@
     <h1>No Results Found</h1>
 {% endif %}
 {% if error %}
-    <p style="color: red;">{{ error }}</p>
+    <p style="color: #80A4ED;">{{ error }}</p>
 {% endif %}
 
 {% endblock %}
