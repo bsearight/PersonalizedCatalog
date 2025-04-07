@@ -1,8 +1,8 @@
 {% extends "index.html" %}
 {% block title %} {{ item_details.name }} {% endblock %}
 {% block content %}
-<button onclick="history.back()" class = "previous round">Back</button>
-<button onclick="window.location.href='/edit_item'" type="button" class="btn btn-sm">Edit Item</button>
+<button onclick="history.back()" class="previous round">Back</button>
+<button onclick="window.location.href='/edit_item/{{ item_details.id }}'" type="button" class="btn btn-sm">Edit Item</button>
 <div>
     <img src="{{ item_details.image }}" alt="{{ item_details.image }}" />
     <h1>{{ item_details.name }}</h1>
@@ -19,20 +19,20 @@
     <button type="button" class="collapsible">Notes</button>
     <div class="content">
   <p>Lorem ipsum...</p>
-<script>
-var coll = document.getElementsByClassName("collapsible");
-var i;
-for (i = 0; i < coll.length; i++) {
-  coll[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var content = this.nextElementSibling;
-    if (content.style.display === "block") {
-      content.style.display = "none";
-    } else {
-      content.style.display = "block";
-    }
-  });
-} </script>
-</div>
+  <script>
+  var coll = document.getElementsByClassName("collapsible");
+  var i;
+  for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+      this.classList.toggle("active");
+      var content = this.nextElementSibling;
+      if (content.style.display === "block") {
+        content.style.display = "none";
+      } else {
+        content.style.display = "block";
+      }
+    });
+  }
+  </script>
 </div>
 {% endblock %}

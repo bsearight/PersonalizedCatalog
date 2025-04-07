@@ -1,4 +1,3 @@
-from sqlite3 import Date
 import os
 from werkzeug.utils import secure_filename
 from flask import Flask, render_template, redirect, request
@@ -128,11 +127,15 @@ def load_user(user_id):
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    project_list = database_getProjects()
+    print("Project List:", project_list)
+    return render_template("index.html", projects=project_list)
 
 @app.route("/projects")
 def projects():
-    return render_template("index.html")
+    project_list = database_getProjects()
+    print("Project List:", project_list)
+    return render_template("index.html", projects=project_list)
 
 @app.route("/view_project")
 def view_project():
@@ -209,7 +212,7 @@ def edit_project(project_id):
 @app.route("/items")
 def items():
     supplies = database_getSupplies()
-    return render_template("items.html", supplies=supplies)
+    return render_template("items.html", items=supplies)
 
 @app.route("/view_item")
 def view_item():

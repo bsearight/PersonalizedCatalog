@@ -5,140 +5,28 @@
   <input name="query" class="form-control" type="search" placeholder="Search" aria-label="Search" style="width: 300px; margin: 20px;">
   <input name="type" type="hidden" value="item">
 </form>
-<button onclick="history.back()" class = "previous round">Back</button>
   <div class="album py-5 bg-light">
     <div class="container">
-
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      {% for item in items %}
         <div class="col">
           <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-
-            <div class="card-body">
-              <p class="card-text">Item Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis molestie efficitur augue.</p>
+            <img src="{{ item.image }}" class="card-img-top" width="100%" height="225" alt="No Image Available" />
+              <div class="card-body">
+              <h3 class="card-text">{{ item.name }}</h3>
+              <hr>
+              <p class="card-text">Brand: {{ item.brand }}</p>
+              <p class="card-text">{{ item.description }}</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button onclick="window.location.href='/view_item/1'" type="button" class="btn btn-sm btn-outline-secondary">View Item</button>
+                  <button onclick="window.location.href='/view_item/{{ item.id }}'" type="button" class="btn btn-sm btn-outline-secondary">View Item</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-
-            <div class="card-body">
-              <p class="card-text">Item Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis molestie efficitur augue.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button onclick="window.location.href='/view_item/1'" type="button" class="btn btn-sm btn-outline-secondary">View Item</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-          <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-
-            <div class="card-body">
-              <p class="card-text">Item Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis molestie efficitur augue.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button onclick="window.location.href='/view_item/1'" type="button" class="btn btn-sm btn-outline-secondary">View Item</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-          <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-
-            <div class="card-body">
-              <p class="card-text">Item Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis molestie efficitur augue.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button onclick="window.location.href='/view_item/1'" type="button" class="btn btn-sm btn-outline-secondary">View Item</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-          <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-
-            <div class="card-body">
-              <p class="card-text">Item Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis molestie efficitur augue.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button onclick="window.location.href='/view_item/1'" type="button" class="btn btn-sm btn-outline-secondary">View Item</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit Item</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-          <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-
-            <div class="card-body">
-              <p class="card-text">Item Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis molestie efficitur augue.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button  onclick="window.location.href='/view_item/1'" type="button" class="btn btn-sm btn-outline-secondary">View Item</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-          <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-
-            <div class="card-body">
-              <p class="card-text">Item Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis molestie efficitur augue.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button  onclick="window.location.href='/view_item/1'" type="button" class="btn btn-sm btn-outline-secondary">View Item</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-          <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-
-            <div class="card-body">
-              <p class="card-text">Item Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis molestie efficitur augue.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button  onclick="window.location.href='/view_item/1'" type="button" class="btn btn-sm btn-outline-secondary">View Item</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit Item</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-          <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-
-            <div class="card-body">
-              <p class="card-text">Item Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis molestie efficitur augue.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button  onclick="window.location.href='/view_item/1'" type="button" class="btn btn-sm btn-outline-secondary">View Item</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        {% endfor %}
+      </div>
      </div>
  </div>
-</div>
 {% endblock %}
