@@ -2,17 +2,19 @@
 {% block title %} Create Project {% endblock %}
 {% block content %}
 <h1>Create Project</h1>
-<form method="POST" action="/create_project_submit">
+<button onclick="history.back()" class = "previous round">Back</button>
+<form method="POST" action="/create_project" enctype="multipart/form-data">
+    <label for="project_name">Name</label>
+    <input type="text" name="project_name" placeholder="Enter name" required>
     <hr>
-    <div class="form-group">
-        <label for="project_name">Name</label>
-        <input type="text" name="project_name" placeholder="Enter name" required>
-    </div>
+    <label for="project_description">Description</label>
+    <input type="text" name="project_description" placeholder="Enter description" required>
     <hr>
-    <div class="form-group">
-        <label for="project_description">Description</label>
-        <textarea name="project_description" placeholder="Enter description" required></textarea>
-    </div>
+    <label for="project_image">Image</label>
+    <input type="file" name="project_image" accept="image/*">
+    <hr>
+    <label for="project_notes">Notes</label>
+    <textarea name="project_notes" placeholder="Enter notes"></textarea>
     <hr>
     <button type="submit">Submit</button>
 </form>

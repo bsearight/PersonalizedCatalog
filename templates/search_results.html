@@ -1,0 +1,33 @@
+{% extends "index.html" %}
+{% block title %} Search Results {% endblock %}
+{% block content %}
+{% if results %}
+    <h1>Search Results</h1>
+    <hr>
+    {% if search_type == "project" %}
+        {% for result in results %}
+            <div class="result">
+                <a href="/view_project/{{ result.id }}" style="color: #283845; font-weight: bold;">{{ result.name }}</a>
+                <p>{{ result.description }}</p>
+                <img src="{{ result.image }}" alt="Image" style="max-width: 200px; max-height: 200px;">
+                <hr>
+            </div>
+        {% endfor %}
+    {% elif search_type == "item" %}
+        {% for result in results %}
+            <div class="result">
+                <a href="/view_item/{{ result.id }}" style="color: #16425B; font-weight: bold;">{{ result.name }}</a>
+                <p>{{ result.description }}</p>
+                <img src="{{ result.image }}" alt="Image" style="max-width: 200px; max-height: 200px;">
+                <hr>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% else %}
+    <h1>No Results Found</h1>
+{% endif %}
+{% if error %}
+    <p style="color: #80A4ED;">{{ error }}</p>
+{% endif %}
+
+{% endblock %}
