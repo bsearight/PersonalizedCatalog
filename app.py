@@ -81,8 +81,8 @@ def database_update(data):
             item.notes = data.notes
             item.image = data.image
     db.session.commit()
-def database_getProjects():
-    projects = Project.query.all()
+def database_getProjects(id):
+    projects = Project.query.filter(Project.owner == id).all()
     return projects
 def database_getSupplies():
     supplies = Supply.query.all()
@@ -118,7 +118,6 @@ def search():
         results = []
     if not results:
         results = []
-
     return render_template("search_results.html", results=results, search_type=search_type)
 
 @login_manager.user_loader
@@ -127,21 +126,21 @@ def load_user(user_id):
 
 @app.route("/")
 def home():
-    project_list = database_getProjects()
-    print("Project List:", project_list)
-    return render_template("index.html", projects=project_list)
+    return redirect("/projects") if current_user.is_authenticated else render_template("index.html", projects=[])
 
 @app.route("/projects")
+@login_required
 def projects():
-    project_list = database_getProjects()
-    print("Project List:", project_list)
+    project_list = database_getProjects(current_user.id)
     return render_template("index.html", projects=project_list)
 
 @app.route("/view_project")
+@login_required
 def view_project():
     return redirect("/projects")
 
 @app.route("/view_project/<project_id>")
+@login_required
 def view_project_id(project_id):
     project = database_getProject(project_id)
     if not project:
@@ -156,6 +155,7 @@ def view_project_id(project_id):
     return render_template("view_project.html", project_details=project_details)
 
 @app.route("/create_project", methods=["GET", "POST"])
+@login_required
 def create_project():
     if request.method == "POST":
         name = request.form.get("project_name", "Unnamed Project")
@@ -176,6 +176,7 @@ def create_project():
         return render_template("create_project.html")
     
 @app.route("/edit_project/<project_id>", methods=["GET", "POST"])
+@login_required
 def edit_project(project_id):
     if request.method == "POST":
         name = request.form.get("project_name", "Unnamed Project")
@@ -210,15 +211,18 @@ def edit_project(project_id):
         return render_template("edit_project.html", project_details=project_details)
 
 @app.route("/items")
+@login_required
 def items():
     supplies = database_getSupplies()
     return render_template("items.html", items=supplies)
 
 @app.route("/view_item")
+@login_required
 def view_item():
     return redirect("/items")
 
 @app.route("/view_item/<item_id>")
+@login_required
 def view_item_id(item_id):
     supply = database_getSupply(item_id)
     if not supply:
@@ -237,6 +241,7 @@ def view_item_id(item_id):
     return render_template("view_item.html", item_details=item_details)
 
 @app.route("/create_item", methods=["GET", "POST"])
+@login_required
 def create_item():
     if request.method == "POST":
         name = request.form.get("item_name", "Unnamed Item")
@@ -263,6 +268,7 @@ def create_item():
     return redirect("/items")
     
 @app.route("/edit_item/<item_id>", methods=["GET", "POST"])
+@login_required
 def edit_item(item_id):
     supply = database_getSupply(item_id)
     if not supply:
@@ -336,7 +342,7 @@ def login():
             print("logged in user:", user.username)
         else:
             return render_template("login.html")
-        return redirect("/")
+        return redirect("/projects")
     return render_template("login.html")
 
 @app.route("/logout")
