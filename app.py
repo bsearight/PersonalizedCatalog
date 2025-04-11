@@ -83,28 +83,22 @@ def database_update(data):
     db.session.commit()
 def database_getProjects(id):
     projects = Project.query.filter(Project.owner == id).all()
-    return projects
+    return projects if projects else []
 def database_getSupplies():
     supplies = Supply.query.all()
-    return supplies
+    return supplies if supplies else []
 def database_getProject(project_id):
     project = db.session.get(Project, project_id)
-    if project:
-        return project
-    else:
-        return None
+    return project if project else None
 def database_getSupply(supply_id):
     supply = db.session.get(Supply, supply_id)
-    if supply:
-        return supply
-    else:
-        return None
+    return supply if supply else None
 def database_findSupply(supply_name):
     supplies = Supply.query.filter(Supply.name.like(f"%{supply_name}%")).all()
-    return supplies if supplies else None
+    return supplies if supplies else []
 def database_findProject(project_name):
     projects = Project.query.filter(Project.name.like(f"%{project_name}%")).all()
-    return projects if projects else None
+    return projects if projects else []
 
 @app.route("/search")
 def search():

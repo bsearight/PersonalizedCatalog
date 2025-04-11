@@ -4,7 +4,7 @@
 <button onclick="history.back()" class="previous round">Back</button>
 <button onclick="window.location.href='/edit_item/{{ item_details.id }}'" type="button" class="btn btn-sm">Edit Item</button>
 <div>
-    <img src="{{ item_details.image }}" alt="{{ item_details.image }}" />
+    <img src="{{ item_details.image }}" alt="{{ item_details.image }}" height="400"/>
     <h1>{{ item_details.name }}</h1>
     <h2>Description: {{ item_details.description }}</h2>
     <h3>Brand: {{ item_details.brand }}</h3>
@@ -15,7 +15,8 @@
         <span class="fa fa-star {% if i <= item_details.rating %}checked{% endif %}"></span>
     {% endfor %}
     <h3>Rating: {{ item_details.rating }}</h3>
-    <h3>Notes: {{ item_details.notes }}</h3>
+    <h3>Notes:</h3>
+    <div style="white-space: pre-wrap;">{{ item_details.notes }}</div>
     <button type="button" class="collapsible">Notes</button>
     <div class="content">
   <p>Lorem ipsum...</p>

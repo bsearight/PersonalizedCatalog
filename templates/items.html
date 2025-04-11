@@ -16,6 +16,10 @@
               <h3 class="card-text">{{ item.name }}</h3>
               <hr>
               <p class="card-text">Brand: {{ item.brand }}</p>
+              <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+              {% for i in range(1, 6) %}
+                  <span class="fa fa-star {% if i <= item.rating %}checked{% endif %}"></span>
+              {% endfor %}
               <p class="card-text">{{ item.description }}</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
