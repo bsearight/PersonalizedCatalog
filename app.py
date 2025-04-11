@@ -39,7 +39,8 @@ class Supply(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     description = db.Column(db.Text)
-    brand = db.Column(db.String(255))
+    brand = db.Column(db.String(55))
+    item_type = db.Column(db.String(55))
     purchase_link = db.Column(db.String(255))
     cost = db.Column(db.Numeric(10, 2))
     rating = db.Column(db.Numeric(3, 2))
@@ -75,6 +76,7 @@ def database_update(data):
             item.name = data.name
             item.description = data.description
             item.brand = data.brand
+            item.item_type = data.item_type
             item.purchase_link = data.purchase_link
             item.cost = data.cost
             item.rating = data.rating
@@ -226,6 +228,7 @@ def view_item_id(item_id):
         "name": supply.name,
         "description": supply.description,
         "brand": supply.brand,
+        "item_type": supply.item_type,
         "purchase_link": supply.purchase_link,
         "cost": supply.cost,
         "rating": int(supply.rating),
@@ -241,6 +244,7 @@ def create_item():
         name = request.form.get("item_name", "Unnamed Item")
         description = request.form.get("item_description", "No Description")
         brand = request.form.get("item_brand", "No Brand")
+        item_type = request.form.get("item_type", "Unknown Type")
         purchase_link = request.form.get("item_purchase_link", "No Purchase Link")
         cost_raw = request.form.get("item_cost", "0")
         rating_raw = request.form.get("item_rating", "0")
@@ -256,7 +260,7 @@ def create_item():
             image_path = f"/static/images/{filename}"
         else:
             image_path = ""
-        database_insert(Supply(name=name, description=description, brand=brand, purchase_link=purchase_link, cost=cost, rating=rating, notes=notes, image=image_path, owner=current_user.id))
+        database_insert(Supply(name=name, description=description, brand=brand, item_type=item_type, purchase_link=purchase_link, cost=cost, rating=rating, notes=notes, image=image_path, owner=current_user.id))
     else:
         return render_template("create_item.html")
     return redirect("/items")
@@ -271,6 +275,7 @@ def edit_item(item_id):
         name = request.form.get("item_name", "Unnamed Item")
         description = request.form.get("item_description", "No Description")
         brand = request.form.get("item_brand", "No Brand")
+        item_type = request.form.get("item_type", "Unknown Type")
         purchase_link = request.form.get("item_purchase_link", "No Purchase Link")
         cost_raw = request.form.get("item_cost", "0")
         rating_raw = request.form.get("item_rating", "0")
@@ -291,13 +296,14 @@ def edit_item(item_id):
                 image_path = f"/static/images/{filename}"
             else:
                 image_path = ""
-        database_update(Supply(id=item_id, name=name, description=description, brand=brand, purchase_link=purchase_link, cost=cost, rating=rating, notes=notes, image=image_path))
+        database_update(Supply(id=item_id, name=name, description=description, brand=brand, item_type=item_type, purchase_link=purchase_link, cost=cost, rating=rating, notes=notes, image=image_path))
     else:
         item_details = {
             "id": supply.id,
             "name": supply.name,
             "description": supply.description,
             "brand": supply.brand,
+            "item_type": supply.item_type,
             "purchase_link": supply.purchase_link,
             "cost": supply.cost,
             "rating": supply.rating,
