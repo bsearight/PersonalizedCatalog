@@ -31,6 +31,7 @@ class Project(db.Model):
     name = db.Column(db.String(255), nullable=False)
     description = db.Column(db.Text)
     image = db.Column(db.String(255))
+    sale_price = db.Column(db.Numeric(10, 2))
     notes = db.Column(db.Text)
     owner = db.Column(db.Integer, db.ForeignKey('user.id'))
 
@@ -69,6 +70,7 @@ def database_update(data):
             project.name = data.name
             project.description = data.description
             project.image = data.image
+            project.sale_price = data.sale_price
             project.notes = data.notes
             project.owner = data.owner
     elif isinstance(data, Supply):
@@ -149,6 +151,7 @@ def view_project_id(project_id):
         "description": project.description,
         "image": project.image,
         "notes": project.notes,
+        "sale_price": project.sale_price,
     }
     return render_template("view_project.html", project_details=project_details)
 
@@ -159,6 +162,7 @@ def create_project():
         name = request.form.get("project_name", "Unnamed Project")
         description = request.form.get("project_description", "No Description")
         notes = request.form.get("project_notes", "No Notes")
+        sale_price = request.form.get("project_sale_price", "0")
         image = request.files['project_image']
         image_path = ""
         if image and image.filename:
@@ -168,7 +172,7 @@ def create_project():
             image_path = f"/static/images/{filename}"
         else:
             image_path = ""
-        database_insert(Project(name=name, description=description, image=image_path, notes=notes, owner=current_user.id))
+        database_insert(Project(name=name, description=description, image=image_path, notes=notes, owner=current_user.id, sale_price=sale_price))
         return redirect("/projects")
     else:
         return render_template("create_project.html")
@@ -179,6 +183,7 @@ def edit_project(project_id):
     if request.method == "POST":
         name = request.form.get("project_name", "Unnamed Project")
         description = request.form.get("project_description", "No Description")
+        sale_price = request.form.get("project_sale_price", "0")
         notes = request.form.get("project_notes", "No Notes")
         image_path_pre = request.form.get("project_image_path", "No Image")
         image_path = ""
@@ -193,7 +198,7 @@ def edit_project(project_id):
                 image_path = f"/static/images/{filename}"
             else:
                 image_path = ""
-        database_update(Project(id=project_id, name=name, description=description, image=image_path, notes=notes, owner=current_user.id))
+        database_update(Project(id=project_id, name=name, description=description, image=image_path, notes=notes, owner=current_user.id, sale_price=sale_price))
         return redirect("/projects")
     else:
         project = database_getProject(project_id)
@@ -203,6 +208,7 @@ def edit_project(project_id):
             "id": project.id,
             "name": project.name,
             "description": project.description,
+            "sale_price": project.sale_price,
             "image": project.image,
             "notes": project.notes,
         }
