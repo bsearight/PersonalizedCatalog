@@ -1,4 +1,5 @@
 import os
+from sqlalchemy import and_, or_, case, desc
 from werkzeug.utils import secure_filename
 from flask import Flask, render_template, redirect, request
 from flask_sqlalchemy import SQLAlchemy
@@ -105,15 +106,35 @@ def database_findSupply(supply_name):
 def database_findProject(project_name):
     projects = Project.query.filter(Project.name.like(f"%{project_name}%")).all()
     return projects if projects else []
+def database_multiparameter_item_search(search_terms):
+    terms = search_terms.split(' ')
+    OWNER_CONDITION = Supply.owner == current_user.id
+    score_expr = None
+    for term in terms:
+        conditions = [
+            case((Supply.name.like(f"%{term}%"), 1), else_=0),
+            case((Supply.item_type.like(f"%{term}%"), 1), else_=0),
+            case((Supply.brand.like(f"%{term}%"), 1), else_=0),
+            case((Supply.color.like(f"%{term}%"), 1), else_=0)
+        ]
+        for condition in conditions:
+            score_expr = condition if score_expr is None else score_expr + condition
+
+    query = Supply.query.add_columns(score_expr.label("score")).filter(OWNER_CONDITION).filter(score_expr > 0)
+    query = query.order_by(desc("score"))
+    
+    scored_results = query.all()
+    search_results = [row[0] for row in scored_results]
+    return search_results if search_results else []
 
 @app.route("/search")
 def search():
-    param = request.args.get('query', '')
+    search_terms = request.args.get('query', '')
     search_type = request.args.get('type', '')
     if search_type == "item":
-        results = database_findSupply(param)
+        results = database_multiparameter_item_search(search_terms)
     elif search_type == "project":
-        results = database_findProject(param)
+        results = database_findProject(search_terms)
     else:
         results = []
     if not results:
