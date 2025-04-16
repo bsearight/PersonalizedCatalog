@@ -92,7 +92,7 @@ def database_getProjects(id):
     projects = Project.query.filter(Project.owner == id).all()
     return projects if projects else []
 def database_getSupplies():
-    supplies = Supply.query.all()
+    supplies = Supply.query.filter(Supply.owner == current_user.id).all()
     return supplies if supplies else []
 def database_getProject(project_id):
     project = db.session.get(Project, project_id)
@@ -101,10 +101,10 @@ def database_getSupply(supply_id):
     supply = db.session.get(Supply, supply_id)
     return supply if supply else None
 def database_findSupply(supply_name):
-    supplies = Supply.query.filter(Supply.name.like(f"%{supply_name}%")).all()
+    supplies = Supply.query.filter(Supply.name.like(f"%{supply_name}%"), Supply.owner == current_user.id).all()
     return supplies if supplies else []
 def database_findProject(project_name):
-    projects = Project.query.filter(Project.name.like(f"%{project_name}%")).all()
+    projects = Project.query.filter(Project.name.like(f"%{project_name}%"), Project.owner == current_user.id).all()
     return projects if projects else []
 def database_multiparameter_item_search(search_terms):
     terms = search_terms.split(' ')
