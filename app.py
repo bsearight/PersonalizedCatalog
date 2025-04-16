@@ -1,4 +1,5 @@
 import os
+from sqlalchemy import case, desc
 from werkzeug.utils import secure_filename
 from flask import Flask, render_template, redirect, request
 from flask_sqlalchemy import SQLAlchemy
@@ -91,7 +92,7 @@ def database_getProjects(id):
     projects = Project.query.filter(Project.owner == id).all()
     return projects if projects else []
 def database_getSupplies():
-    supplies = Supply.query.all()
+    supplies = Supply.query.filter(Supply.owner == current_user.id).all()
     return supplies if supplies else []
 def database_getProject(project_id):
     project = db.session.get(Project, project_id)
@@ -100,20 +101,40 @@ def database_getSupply(supply_id):
     supply = db.session.get(Supply, supply_id)
     return supply if supply else None
 def database_findSupply(supply_name):
-    supplies = Supply.query.filter(Supply.name.like(f"%{supply_name}%")).all()
+    supplies = Supply.query.filter(Supply.name.like(f"%{supply_name}%"), Supply.owner == current_user.id).all()
     return supplies if supplies else []
 def database_findProject(project_name):
-    projects = Project.query.filter(Project.name.like(f"%{project_name}%")).all()
+    projects = Project.query.filter(Project.name.like(f"%{project_name}%"), Project.owner == current_user.id).all()
     return projects if projects else []
+def database_multiparameter_item_search(search_terms):
+    terms = search_terms.split(' ')
+    OWNER_CONDITION = Supply.owner == current_user.id
+    score_expr = None
+    for term in terms:
+        conditions = [
+            case((Supply.name.like(f"%{term}%"), 1), else_=0),
+            case((Supply.item_type.like(f"%{term}%"), 1), else_=0),
+            case((Supply.brand.like(f"%{term}%"), 1), else_=0),
+            case((Supply.color.like(f"%{term}%"), 1), else_=0)
+        ]
+        for condition in conditions:
+            score_expr = condition if score_expr is None else score_expr + condition
+
+    query = Supply.query.add_columns(score_expr.label("score")).filter(OWNER_CONDITION).filter(score_expr > 0)
+    query = query.order_by(desc("score"))
+    
+    scored_results = query.all()
+    search_results = [row[0] for row in scored_results]
+    return search_results if search_results else []
 
 @app.route("/search")
 def search():
-    param = request.args.get('query', '')
+    search_terms = request.args.get('query', '')
     search_type = request.args.get('type', '')
     if search_type == "item":
-        results = database_findSupply(param)
+        results = database_multiparameter_item_search(search_terms)
     elif search_type == "project":
-        results = database_findProject(param)
+        results = database_findProject(search_terms)
     else:
         results = []
     if not results:
