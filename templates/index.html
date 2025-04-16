@@ -83,6 +83,7 @@
         {% endif %}
         </ul>
       </div>
+    </div>
     </nav>
     {% block content %}
     {% if user.is_authenticated %}
@@ -112,11 +113,19 @@
         {% endfor %}
      </div>
  </div>
-</div>
-
+  </div>
     {% else %}
-    <h1>Welcome to the Personalized Catalog!</h1>
-    <p>Please log in or register to access your projects and items.</p>
+  <div class="px-4 py-5 my-5 text-center">
+    <img class="d-block mx-auto mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+    <h1 class="display-5 fw-bold">Welcome to the Personalized Catalog!</h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4">Please log in or register to access your projects and items.</p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <button type="button" onclick="window.location.href='/login'" class="btn btn-primary btn-lg px-4 gap-3">Log in</button>
+        <button type="button" onclick="window.location.href='/register'" class="btn btn-secondary btn-lg px-4">Sign Up</button>
+      </div>
+    </div>
+  </div>
     {% endif %}
     {% endblock %}
 </body>
