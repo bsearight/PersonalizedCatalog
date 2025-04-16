@@ -1,13 +1,13 @@
 body{
-    background-color:#F3F3F4;
+    background-color:#C5D8D1;
     color: black
 }
 a{
     color: black
 }
 
-/*(nav{
-    background-color: #F3F3F4;
+nav{
+    background-color: #12263A;
     width: 100%;
 }
 nav ul{
@@ -20,22 +20,16 @@ nav ul li{
     padding: 5px;
 }
 nav ul li a:link, nav ul li a:visited{
-    color:#283845;
+    color: #98D2EB;
 }
 nav ul li a:hover{
-    color: #16425B;
+    color:#59A5D8;
 }
 nav ul li.selected{
-    background-color: #80A4ED;
+    background-color: #06BCC1;
 }
-table tr th{
-    border-style: solid;
-    padding: 4px;
-}
-table tr td{
-    border-style: solid;
-    padding: 4px;
-}*/
+
+
 
 
 .title{
