@@ -10,6 +10,19 @@ function myFunction() {
 }
 </script>
 <div>
+  <div class="grid-container">
+  <div class="item1"><h1>{{ item_details.name }}</h1></div>
+  <div class="item2"><h2>Description: {{ item_details.description }}</h2></div>
+  <div class="item3"><img src="{{ item_details.image }}" alt="{{ item_details.image }}" height="400"/></div>
+  <div class="item4"><h3>Brand: {{ item_details.brand }}</h3></div>
+  <div class="item5"><h3>Item Type: {{ item_details.item_type }}</h3></div>
+  <div class="item6"><h3>Color: {{ item_details.color }}</h3></div>
+  <div class="item7"><h3>Purchase Link: <a href="{{ item_details.purchase_link }}">{{ item_details.purchase_link }}</a></h3></div>
+  <div class="item8"><h3>Cost: ${{ item_details.cost }}</h3></div>
+  <div class="item8"><h3>Cost: ${{ item_details.cost }}</h3></div>
+  <div class="item9"><h3>Rating: {{ item_details.rating }}</h3></div>
+</div>
+    <!--
     <img src="{{ item_details.image }}" alt="{{ item_details.image }}" height="400"/>
     <h1>{{ item_details.name }}</h1>
     <h2>Description: {{ item_details.description }}</h2>
@@ -23,6 +36,7 @@ function myFunction() {
         <span class="fa fa-star {% if i <= item_details.rating %}checked{% endif %}"></span>
     {% endfor %}
     <h3>Rating: {{ item_details.rating }}</h3>
+    -->
     <h3>Notes:</h3>
     <div style="white-space: pre-wrap;">{{ item_details.notes }}</div>
     <button type="button" class="collapsible">Notes</button>
@@ -43,5 +57,6 @@ function myFunction() {
     });
   }
   </script>
+</div>
 </div>
 {% endblock %}
