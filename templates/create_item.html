@@ -25,34 +25,23 @@
     <label for="item_cost">Cost</label>
     <input type="number" name="item_cost" placeholder="Enter cost" min="0" step="0.01">
     <hr>
-    <div class="">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-        <div class="star-rating">
-            <div class="star-rating animated-stars">
-            <input type="radio" id="star5" name="rating" value="1">
-            <label for="star5" class="bi bi-star-filled"></label>
-            <input type="radio" id="star4" name="rating" value="2">
-            <label for="star4" class="bi bi-star-filled"></label>
-            <input type="radio" id="star3" name="rating" value="3">
-            <label for="star3" class="bi bi-star-filled"></label>
-            <input type="radio" id="star2" name="rating" value="4">
-            <label for="star2" class="bi bi-star-filled"></label>
-            <input type="radio" id="star1" name="rating" value="5">
-            <label for="star1" class="bi bi-star-filled"></label>
-        </div>
-        </div>
-        <div class="mt-3">
-            <span id="rating-value" class="h4">0</span> out of 5 stars
-        </div>
-    </div>
-    <script>
-        const starRating = document.querySelector('.star-rating');
-        const ratingValue = document.getElementById('rating-value');
-
-        starRating.addEventListener('change', function(e) {
-            ratingValue.textContent = e.target.value;
-        });
-    </script>
+    <label for="rating">Rating</label>
+    <fieldset>
+        <span class="star-cb-group">
+          <input type="radio" id="rating-5" name="rating" value="5" />
+          <label for="rating-5">5</label>
+          <input type="radio" id="rating-4" name="rating" value="4" checked="checked" />
+          <label for="rating-4">4</label>
+          <input type="radio" id="rating-3" name="rating" value="3" />
+          <label for="rating-3">3</label>
+          <input type="radio" id="rating-2" name="rating" value="2" />
+          <label for="rating-2">2</label>
+          <input type="radio" id="rating-1" name="rating" value="1" />
+          <label for="rating-1">1</label>
+          <input type="radio" id="rating-0" name="rating" value="0" class="star-cb-clear" />
+          <label for="rating-0">0</label>
+        </span>
+    </fieldset>
     <hr>
     <label for="item_notes">Notes</label>
     <textarea name="item_notes" placeholder="Enter notes"></textarea>
