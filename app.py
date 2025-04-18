@@ -245,7 +245,7 @@ def edit_project(project_id):
         }
         return render_template("edit_project.html", project_details=project_details)
     
-@app.route("/delete_project/<project_id>", methods=["POST"])
+@app.route("/delete_project/<project_id>")
 @login_required
 def delete_project(project_id):
     database_deleteProject(project_id)
@@ -362,7 +362,7 @@ def edit_item(item_id):
         return render_template("edit_item.html", item_details=item_details)
     return redirect("/items")
 
-@app.route("/delete_item/<item_id>", methods=["POST"])
+@app.route("/delete_item/<item_id>")
 @login_required
 def delete_item(item_id):
     database_deleteItem(item_id)
