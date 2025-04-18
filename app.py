@@ -147,13 +147,13 @@ def load_user(user_id):
 
 @app.route("/")
 def home():
-    return redirect("/projects") if current_user.is_authenticated else render_template("index.html", projects=[])
+    return redirect("/projects") if current_user.is_authenticated else render_template("projects.html", projects=[])
 
 @app.route("/projects")
 @login_required
 def projects():
     project_list = database_getProjects(current_user.id)
-    return render_template("index.html", projects=project_list)
+    return render_template("projects.html", projects=project_list)
 
 @app.route("/view_project")
 @login_required
