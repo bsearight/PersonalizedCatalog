@@ -40,13 +40,13 @@ nav ul li.selected{
 }
 
 .item1 { grid-area: header;}
-.item2 { grid-area: right-top;}
+.item2 { grid-area: right;}
 .item3 { grid-area: main;}
-.item4 { grid-area: right-center;}
+.item4 { grid-area: right;}
 .item5 { grid-area: left;}
-.item6 { grid-area: left-center;}
-.item7 { grid-area: right-bottom;}
-.item8 { grid-area: left-bottom;}
+.item6 { grid-area: left;}
+.item7 { grid-area: right;}
+.item8 { grid-area: left;}
 .item9 { grid-area: right;}
 
 .title{
