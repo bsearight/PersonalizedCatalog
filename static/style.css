@@ -29,6 +29,70 @@ nav ul li.selected{
     background-color: #06BCC1;
 }
 
+.item-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 10px;
+  padding: 20px;
+  width: 100%;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.row:nth-child(odd) {
+  background-color: #F4EDEA;
+}
+
+.row:nth-child(even) {
+  background-color: #F4D1AE;
+}
+
+.row img {
+  width: 100%;
+  height: auto;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.image-section img {
+  width: 100%;
+  height: auto;
+}
+
+.details-section {
+  background-color: #C5D8D1;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  border: 1px solid #ddd;
+}
+
+.row:nth-child(even) {
+  background-color: #F4EDEA;
+}
+
+h1, h2, h3 {
+  margin: 5px 0;
+}
+
+dl dt {
+  font-weight: bold;
+}
+
+dl dd {
+  margin-left: 15px;
+}
+
 
 .title{
     color: black;
