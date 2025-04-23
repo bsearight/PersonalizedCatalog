@@ -29,9 +29,7 @@ nav ul li.selected{
     background-color: #06BCC1;
 }
 
-.nav-bar-toggler{
-    background-color: #98D2EB;
-}
+
 
 .item-grid {
   display: grid;
