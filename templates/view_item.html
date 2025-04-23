@@ -29,12 +29,12 @@ function myFunction() {
         <span class="fa fa-star {% if i <= item_details.rating %}checked{% endif %}"></span>
     {% endfor %}
     </div>
+  </div>
     <h3>Notes:</h3>
     <div style="white-space: pre-wrap;">{{ item_details.notes }}</div>
     <button type="button" class="collapsible">Notes</button>
     <div class="content">
   <p>Lorem ipsum...</p>
-  </div>
 </div>
   <!--  <img src="{{ item_details.image }}" alt="{{ item_details.image }}" height="400"/>
     <h1>{{ item_details.name }}</h1>
