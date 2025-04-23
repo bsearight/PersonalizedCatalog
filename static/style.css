@@ -29,30 +29,49 @@ nav ul li.selected{
     background-color: #06BCC1;
 }
 
-.item-grid{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    padding: 20px;
+.item-grid {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 10px;
+  width: 100%;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
 }
 
-.img-section img{
-    width: auto;
-    height: auto;
+.row {
+  display: contents;
 }
 
-.row details-section{
-    display: flex;
-    flex-direction: column;
+.label {
+  background-color: #F4EDEA;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
 }
 
-.row:nth-child(even){
-    background-color: #F4D1AE;
+.value {
+  background-color: #F4D1AE;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
 }
 
-.row:nth-child(odd){
-    background-color: #F4EDEA;
+.header-row {
+  grid-column: span 2;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+  padding: 15px;
+  border-bottom: 2px solid #ddd;
 }
+
+.img-fluid {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 
 .title{
     color: black;
