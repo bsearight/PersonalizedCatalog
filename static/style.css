@@ -246,7 +246,7 @@ a:hover {
 
 .collapsible {
   background-color: #F4D1AE;
-  color: #F8E0C9;
+  color: #12263A;
   cursor: pointer;
   padding: 18px;
   width: 100%;
@@ -257,7 +257,7 @@ a:hover {
 }
 
 .active, .collapsible:hover {
-  background-color: #F8E0C9;
+  background-color: #12263A;
 }
 
 .content {
