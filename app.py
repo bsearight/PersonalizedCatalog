@@ -106,6 +106,16 @@ def database_findSupply(supply_name):
 def database_findProject(project_name):
     projects = Project.query.filter(Project.name.like(f"%{project_name}%"), Project.owner == current_user.id).all()
     return projects if projects else []
+def database_deleteItem(item_id):
+    supply = db.session.get(Supply, item_id)
+    if supply:
+        db.session.delete(supply)
+        db.session.commit()
+def database_deleteProject(project_id):
+    project = db.session.get(Project, project_id)
+    if project:
+        db.session.delete(project)
+        db.session.commit()
 def database_multiparameter_item_search(search_terms):
     terms = search_terms.split(' ')
     OWNER_CONDITION = Supply.owner == current_user.id
@@ -235,6 +245,12 @@ def edit_project(project_id):
         }
         return render_template("edit_project.html", project_details=project_details)
 
+@app.route("/delete_project/<project_id>")
+@login_required
+def delete_project(project_id):
+    database_deleteProject(project_id)
+    return redirect("/projects")
+
 @app.route("/items")
 @login_required
 def items():
@@ -344,6 +360,12 @@ def edit_item(item_id):
             "image": supply.image
         }
         return render_template("edit_item.html", item_details=item_details)
+    return redirect("/items")
+
+@app.route("/delete_item/<item_id>")
+@login_required
+def delete_item(item_id):
+    database_deleteItem(item_id)
     return redirect("/items")
 
 @app.route("/register", methods=["GET", "POST"])
