@@ -31,46 +31,43 @@ nav ul li.selected{
 
 .item-grid {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 10px;
-  width: 100%;
   padding: 20px;
-  border: 1px solid #ddd;
-  border-collapse: collapse;
-  font-family: Arial, sans-serif;
+  width: 100%;
 }
 
 .row {
-  display: contents;
-}
-
-.label {
-  background-color: #F4EDEA;
+  display: flex;
+  align-items: center;
   padding: 10px;
   border-bottom: 1px solid #ddd;
 }
 
-.value {
-  background-color: #F4D1AE;
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
+.row:nth-child(odd) {
+  background-color: #F4EDEA; /* White for odd rows */
+}
+
+.row:nth-child(even) {
+  background-color: #F4D1AE; /* Orange for even rows */
+}
+
+.row img {
+  width: 100%;
+  height: auto;
 }
 
 .header-row {
-  grid-column: span 2;
+  grid-column: span 2; /* Makes the header span across all columns */
   font-size: 24px;
   font-weight: bold;
   text-align: center;
+  background-color: #007bff; /* Optional: blue header */
   color: white;
   padding: 15px;
   border-bottom: 2px solid #ddd;
 }
 
-.img-fluid {
-  width: 100%;
-  height: auto;
-  display: block;
-}
 
 
 .title{
