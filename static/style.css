@@ -46,9 +46,10 @@ nav ul li.selected{
     flex-direction: column;
 }
 
-.details-section>div:nth-child(even) {
-  background: #F4D1AE;
+.details-section-even-row td, .details-section-even-row th {
+    background-color: #F4D1AE !important;
 }
+
 .title{
     color: black;
     font-size: 32px;
