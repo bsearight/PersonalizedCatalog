@@ -57,6 +57,47 @@ nav ul li.selected{
   height: auto;
 }
 
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.row:nth-child(even) {
+  background-color: #F4EDEA;
+}
+
+.row:nth-child(odd) {
+  background-color: #F4D1AE;
+}
+
+.row img {
+  width: 100%;
+  height: auto;
+}
+
+.header-row {
+  grid-column: span 2;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  background-color: #007bff; /* Optional: blue header */
+  color: white;
+  padding: 15px;
+  border-bottom: 2px solid #ddd;
+}
+
+
+
 .header-row {
   grid-column: span 2; /* Makes the header span across all columns */
   font-size: 24px;
