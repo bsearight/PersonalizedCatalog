@@ -45,11 +45,11 @@ nav ul li.selected{
 }
 
 .row:nth-child(odd) {
-  background-color: #F4EDEA; /* White for odd rows */
+  background-color: #F4EDEA;
 }
 
 .row:nth-child(even) {
-  background-color: #F4D1AE; /* Orange for even rows */
+  background-color: #F4D1AE;
 }
 
 .row img {
@@ -62,14 +62,19 @@ nav ul li.selected{
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
   padding: 20px;
-  border: 1px solid #ddd;
 }
 
-.row {
+.image-section img {
+  width: 100%;
+  height: auto;
+}
+
+.details-section {
+  background-color: #C5D8D1;
   display: flex;
   flex-direction: column;
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
+  padding: 15px;
+  border: 1px solid #ddd;
 }
 
 .row:nth-child(even) {
@@ -80,9 +85,16 @@ nav ul li.selected{
   background-color: #F4D1AE;
 }
 
-.row img {
-  width: 100%;
-  height: auto;
+h1, h2, h3 {
+  margin: 5px 0;
+}
+
+dl dt {
+  font-weight: bold;
+}
+
+dl dd {
+  margin-left: 15px;
 }
 
 .header-row {
