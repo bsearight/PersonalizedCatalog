@@ -41,13 +41,17 @@ nav ul li.selected{
     height: auto;
 }
 
-.details-section{
+.row details-section{
     display: flex;
     flex-direction: column;
 }
 
-.details-section-even-row td, .details-section-even-row th {
-    background-color: #F4D1AE !important;
+.row:nth-child(even){
+    background-color: #F4D1AE;
+}
+
+.row:nth-child(odd){
+    background-color: #F4EDEA;
 }
 
 .title{
