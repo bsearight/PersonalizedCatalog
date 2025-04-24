@@ -3,7 +3,7 @@
 {% block content %}
 <button onclick="history.back()" style = "background-color: #12263A" class="btn btn-secondary mb-4">Back</button>
 {% if results %}
-    <h1>Search Results</h1>
+    <h1 style="font-family: serif">Search Results</h1>
     <hr>
     {% if search_type == "project" %}
         {% for result in results %}
