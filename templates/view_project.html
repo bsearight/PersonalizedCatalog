@@ -1,7 +1,7 @@
 {% extends "projects.html" %}
 {% block title %}{{ project_details.name }}{% endblock %}
 {% block content %}
-<button onclick="history.back()" class = "previous round">Back</button>
+<button onclick="history.back()" style = "background-color: #12263A" class="btn btn-secondary mb-4">Back</button>
 <button onclick="window.location.href='/edit_project/{{ project_details.id }}'" type="button" class="btn btn-sm">Edit Project</button>
 <button onclick="confirmDelete()" type="button" class="btn btn-sm">Delete</button>
 <script>
