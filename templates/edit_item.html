@@ -1,7 +1,58 @@
 {% extends "projects.html" %}
 {% block title %}Edit Item{% endblock %}
 {% block content %}
-<h1>Edit Item</h1>
+<div class="container mt-5">
+  <h1 class="text-center mb-4">Edit Item</h1>
+  <button onclick="history.back()" style = "background-color: #12263A" class="btn btn-secondary mb-4">Back</button>
+  <form method="POST" action="/edit_item/{{ item_details.id }}" enctype="multipart/form-data" class="shadow p-4 bg-light rounded">
+    <div class="mb-3">
+      <label for="item_name" class="form-label">Name</label>
+      <input type="text" id="item_name" name="item_name" class="form-control" placeholder="Enter name" value="{{ item_details.name }}" required>
+    </div>
+    <div class="mb-3">
+      <label for="item_description" class="form-label">Description</label>
+      <input type="text" id="item_description" name="item_description" class="form-control" placeholder="Enter description" value="{{ item_details.description }}" required>
+    </div>
+    <div class="mb-3">
+      <label for="item_brand" class="form-label">Brand</label>
+      <input type="text" id="item_brand" name="item_brand" class="form-control" placeholder="Enter brand" value="{{ item_details.brand }}">
+    </div>
+    <div class="mb-3">
+      <label for="item_type" class="form-label">Item Type</label>
+      <input type="text" id="item_type" name="item_type" class="form-control" placeholder="Enter item type" value="{{ item_details.item_type }}">
+    </div>
+    <div class="mb-3">
+      <label for="item_color" class="form-label">Color</label>
+      <input type="text" id="item_color" name="item_color" class="form-control" placeholder="Enter color" value="{{ item_details.color }}">
+    </div>
+    <div class="mb-3">
+      <label for="item_purchase_link" class="form-label">Purchase Link</label>
+      <input type="url" id="item_purchase_link" name="item_purchase_link" class="form-control" placeholder="Enter purchase link" value="{{ item_details.purchase_link }}">
+    </div>
+    <div class="mb-3">
+      <label for="item_cost" class="form-label">Cost</label>
+      <input type="number" id="item_cost" name="item_cost" class="form-control" placeholder="Enter cost" min="0" step="0.01" value="{{ item_details.cost }}">
+    </div>
+    <div class="mb-3">
+      <label for="item_rating" class="form-label">Rating</label>
+      <input type="number" id="item_rating" name="item_rating" class="form-control" placeholder="Enter rating" min="0" max="5" value="{{ item_details.rating }}">
+    </div>
+    <div class="mb-3">
+      <label for="item_notes" class="form-label">Notes</label>
+      <textarea id="item_notes" name="item_notes" class="form-control" placeholder="Enter notes" rows="4">{{ item_details.notes }}</textarea>
+    </div>
+    <div class="mb-3">
+      <label for="item_image" class="form-label">Image</label>
+      <div class="mb-2">
+        <img src="{{ item_details.image }}" alt="[Item Image]" class="img-fluid" style="max-width: 200px; max-height: 200px;">
+      </div>
+      <input type="file" id="item_image" name="item_image" class="form-control" accept="image/*">
+      <input type="hidden" name="item_image_path" value="{{ item_details.image }}">
+    </div>
+    <button type="submit" style = "background-color: #F4D1AE" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+<!--<h1>Edit Item</h1>
 <button onclick="history.back()" class = "previous round">Back</button>
 <form method="POST" action="/edit_item/{{ item_details.id }}" enctype="multipart/form-data">
     <label for="item_name">Name</label>
@@ -39,5 +90,5 @@
     <input type="hidden" name="item_image_path" value="{{ item_details.image }}">
     <hr>
     <button type="submit">Submit</button>
-</form>
+</form>-->
 {% endblock %}
