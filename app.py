@@ -26,6 +26,12 @@ class User(db.Model, UserMixin):
     projects = db.relationship("Project", backref="user")
     supplies = db.relationship("Supply", backref="user")
 
+class ProjectImage(db.Model):
+    __tablename__ = 'project_images'
+    id = db.Column(db.Integer, primary_key=True)
+    project_id = db.Column(db.Integer, db.ForeignKey('project.id'), nullable=False)
+    image_path = db.Column(db.String(255), nullable=False)
+
 class Project(db.Model):
     __tablename__ = 'project'
     id = db.Column(db.Integer, primary_key=True)
@@ -34,7 +40,14 @@ class Project(db.Model):
     image = db.Column(db.String(255))
     sale_price = db.Column(db.Numeric(10, 2))
     notes = db.Column(db.Text)
+    images = db.relationship('ProjectImage', backref='project', lazy=True)
     owner = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+class SupplyImage(db.Model):
+    __tablename__ = 'supply_images'
+    id = db.Column(db.Integer, primary_key=True)
+    supply_id = db.Column(db.Integer, db.ForeignKey('supply.id'), nullable=False)
+    image_path = db.Column(db.String(255), nullable=False)
 
 class Supply(db.Model):
     __tablename__ = 'supply'
@@ -50,6 +63,7 @@ class Supply(db.Model):
     notes = db.Column(db.Text)
     image = db.Column(db.String(255))
     owner = db.Column(db.Integer, db.ForeignKey('user.id'))
+    images = db.relationship('SupplyImage', backref='supply', lazy=True)
 
 def database_insert(data):
     if isinstance(data, User):
@@ -57,6 +71,10 @@ def database_insert(data):
     elif isinstance(data, Project):
         db.session.add(data)
     elif isinstance(data, Supply):
+        db.session.add(data)
+    elif isinstance(data, SupplyImage):
+        db.session.add(data)
+    elif isinstance(data, ProjectImage):
         db.session.add(data)
     db.session.commit()
 def database_update(data):
@@ -176,6 +194,7 @@ def view_project_id(project_id):
     project = database_getProject(project_id)
     if not project:
         return redirect("/projects")
+    
     project_details = {
         "id": project.id,
         "name": project.name,
@@ -183,6 +202,7 @@ def view_project_id(project_id):
         "image": project.image,
         "notes": project.notes,
         "sale_price": project.sale_price,
+        "images": [img.image_path for img in project.images]
     }
     return render_template("view_project.html", project_details=project_details)
 
@@ -203,7 +223,17 @@ def create_project():
             image_path = f"/static/images/{filename}"
         else:
             image_path = ""
-        database_insert(Project(name=name, description=description, image=image_path, notes=notes, owner=current_user.id, sale_price=sale_price))
+        new_project = Project(name=name, description=description, image=image_path, notes=notes, owner=current_user.id, sale_price=sale_price)
+        database_insert(new_project)
+        image_files = request.files.getlist("project_images")
+        for file in image_files:
+            if file and file.filename:
+                filename = secure_filename(file.filename)
+                full_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+                file.save(full_path)
+                image_path = f"/static/images/{filename}"
+                new_image = ProjectImage(project_id=new_project.id, image_path=image_path)
+                database_insert(new_image)
         return redirect("/projects")
     else:
         return render_template("create_project.html")
@@ -230,6 +260,18 @@ def edit_project(project_id):
             else:
                 image_path = ""
         database_update(Project(id=project_id, name=name, description=description, image=image_path, notes=notes, owner=current_user.id, sale_price=sale_price))
+
+        image_files = request.files.getlist("project_images")
+        for file in image_files:
+            if file and file.filename:
+                filename = secure_filename(file.filename)
+                full_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+                file.save(full_path)
+                image_path = f"/static/images/{filename}"
+                new_image = ProjectImage(project_id=project_id, image_path=image_path)
+                database_insert(new_image)
+        
+
         return redirect("/projects")
     else:
         project = database_getProject(project_id)
@@ -248,6 +290,9 @@ def edit_project(project_id):
 @app.route("/delete_project/<project_id>")
 @login_required
 def delete_project(project_id):
+    project = database_getProject(project_id)
+    if not project or project.owner != current_user.id:
+        return redirect("/projects")
     database_deleteProject(project_id)
     return redirect("/projects")
 
@@ -279,7 +324,8 @@ def view_item_id(item_id):
         "cost": supply.cost,
         "rating": int(supply.rating),
         "notes": supply.notes,
-        "image": supply.image
+        "image": supply.image,
+        "images": [img.image_path for img in supply.images]
     }
     return render_template("view_item.html", item_details=item_details)
 
@@ -298,20 +344,33 @@ def create_item():
         cost = float(cost_raw) if cost_raw.strip() else 0.0
         rating = float(rating_raw) if rating_raw.strip() else 0.0
         notes = request.form.get("item_notes", "No Notes")
-        image = request.files['item_image']
-        image_path = ""
+        
+        primary_image = ""
+        image = request.files.get('item_image')
         if image and image.filename:
             filename = secure_filename(image.filename)
             full_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             image.save(full_path)
-            image_path = f"/static/images/{filename}"
-        else:
-            image_path = ""
-        database_insert(Supply(name=name, description=description, brand=brand, item_type=item_type, color=color, purchase_link=purchase_link, cost=cost, rating=rating, notes=notes, image=image_path, owner=current_user.id))
+            primary_image = f"/static/images/{filename}"
+        
+        new_supply = Supply(name=name, description=description, brand=brand, item_type=item_type, 
+                            color=color, purchase_link=purchase_link, cost=cost, rating=rating, 
+                            notes=notes, image=primary_image, owner=current_user.id)
+        database_insert(new_supply)
+        
+        image_files = request.files.getlist("item_images")
+        for file in image_files:
+            if file and file.filename:
+                filename = secure_filename(file.filename)
+                full_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+                file.save(full_path)
+                image_path = f"/static/images/{filename}"
+                new_image = SupplyImage(supply_id=new_supply.id, image_path=image_path)
+                database_insert(new_image)
+        return redirect("/items")
     else:
         return render_template("create_item.html")
-    return redirect("/items")
-    
+     
 @app.route("/edit_item/<item_id>", methods=["GET", "POST"])
 @login_required
 def edit_item(item_id):
@@ -345,6 +404,16 @@ def edit_item(item_id):
             else:
                 image_path = ""
         database_update(Supply(id=item_id, name=name, description=description, brand=brand, item_type=item_type, color=color, purchase_link=purchase_link, cost=cost, rating=rating, notes=notes, image=image_path))
+
+        image_files = request.files.getlist("item_images")
+        for file in image_files:
+            if file and file.filename:
+                filename = secure_filename(file.filename)
+                full_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+                file.save(full_path)
+                image_path = f"/static/images/{filename}"
+                new_image = SupplyImage(supply_id=item_id, image_path=image_path)
+                database_insert(new_image)
     else:
         item_details = {
             "id": supply.id,
@@ -357,7 +426,8 @@ def edit_item(item_id):
             "cost": supply.cost,
             "rating": supply.rating,
             "notes": supply.notes,
-            "image": supply.image
+            "image": supply.image,
+            "images": [img.image_path for img in supply.images]
         }
         return render_template("edit_item.html", item_details=item_details)
     return redirect("/items")
@@ -365,6 +435,9 @@ def edit_item(item_id):
 @app.route("/delete_item/<item_id>")
 @login_required
 def delete_item(item_id):
+    supply = database_getSupply(item_id)
+    if not supply or supply.owner != current_user.id:
+        return redirect("/items")
     database_deleteItem(item_id)
     return redirect("/items")
 

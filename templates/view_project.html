@@ -18,6 +18,14 @@ function confirmDelete() {
 <div class="project-grid" style="background-color: #C2D6CE">
   <div class="image-section">
     <img src="{{ project_details.image }}" alt="Project Image" height="400" />
+    <br>
+    <h3>Additional Images:</h3>
+    {% if project_details.images == [] %}
+      <p>No additional images available.</p>
+    {% endif %}
+    {% for image in project_details.images %}
+      <img src="{{ image }}" alt="Additional Image" class="img-fluid" style="max-width: 200px; max-height: 200px;" />
+    {% endfor %}
   </div>
   <div class="row details-section" style="font-family: serif">
     <h1>{{ project_details.name }}</h1>

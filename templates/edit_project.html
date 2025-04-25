@@ -26,6 +26,15 @@
       <input type="hidden" name="project_image_path" value="{{ project_details.image }}">
     </div>
     <div class="mb-3">
+      <label for="project_additional_images" class="form-label">Additional Images</label>
+      <input type="file" id="project_additional_images" name="project_additional_images" class="form-control" accept="image/*" multiple>
+      <div class="mb-2 mt-2">
+        {% for image in project_details.images %}
+          <img src="{{ image }}" alt="[Additional Image Display]" class="img-fluid" style="max-width: 200px; max-height: 200px;">
+        {% endfor %}
+      </div>
+    </div>
+    <div class="mb-3">
       <label for="project_notes" class="form-label">Notes</label>
       <textarea id="project_notes" name="project_notes" class="form-control" placeholder="Enter notes" rows="4">{{ project_details.notes }}</textarea>
     </div>

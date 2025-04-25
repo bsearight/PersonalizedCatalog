@@ -64,6 +64,19 @@
       <input type="file" id="item_image" name="item_image" class="form-control" accept="image/*">
       <input type="hidden" name="item_image_path" value="{{ item_details.image }}">
     </div>
+    <div class="mb-3">
+      <br>
+      {% if item_details.images == [] %}
+        <p>No additional images available.</p>
+      {% endif %}
+      {% if item_details.images != [] %}
+        <h5>Additional Images:</h5>
+      {% endif %}
+      {% for item in item_details.images %}
+      <img src="{{ item }}" alt="[Item Image]" class="img-fluid" style="max-width: 200px; max-height: 200px;">
+      {% endfor %}
+      <input type="file" id="item_images" name="item_images" class="form-control" accept="image/*" multiple>
+    </div>
     <button type="submit" style = "background-color: #F4D1AE" class="btn btn-primary">Submit</button>
   </form>
 </div>

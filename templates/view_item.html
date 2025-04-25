@@ -35,11 +35,19 @@ function confirmDelete() {
     </div>
   </div>
 </div>
-<h3>Notes:</h3>
-    <div style="white-space: pre-wrap;">{{ item_details.notes }}</div>
-    <button type="button" class="collapsible">Notes</button>
-    <div class="content">
-  <p>Lorem ipsum...</p>
+<div class="image-section">
+  <h3>Additional Images:</h3>
+  {% if item_details.images == [] %}
+    <p>No additional images available.</p>
+  {% endif %}
+  {% for image in item_details.images %}
+  <img src="{{ image }}" alt="{{ image }}" class="img-fluid" style="max-width: 200px; max-height: 200px;"/>
+  {% endfor %}
+</div>
+  <div style="white-space: pre-wrap;"></div>
+  <button type="button" class="collapsible">Notes</button>
+  <div class="content">
+  <p>{{ item_details.notes }}</p>
   <script>
   var coll = document.getElementsByClassName("collapsible");
   var i;
