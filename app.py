@@ -4,6 +4,7 @@ from werkzeug.utils import secure_filename
 from flask import Flask, render_template, redirect, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from bcrypt import hashpw, checkpw, gensalt
 
 app = Flask(__name__, static_url_path="/static")
 UPLOAD_FOLDER = os.path.join(app.root_path, "static", "images")
@@ -370,33 +371,31 @@ def delete_item(item_id):
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    ## WARNING: THIS IS NOT SECURED. DO NOT USE IN PRODUCTION
     if request.method == "POST":
         username = request.form["username"]
         user = User.query.filter_by(username=username).first()
         if user:
-            return render_template("register.html")
-        else:
-            password = request.form["password"]
-            cpassword = request.form["confirm"]
-            if password != cpassword:
-                return redirect("/")
-            database_insert(User(username=username, password=password))
             return redirect("/")
+        password = request.form["password"]
+        cpassword = request.form["confirm"]
+        if password != cpassword:
+            return redirect("/")
+        hashed_password = hashpw(password.encode('utf-8'), gensalt()).decode('utf-8')
+        database_insert(User(username=username, password=hashed_password))
+        return redirect("/")
     return render_template("register.html")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    ## WARNING: THIS IS NOT SECURED. DO NOT USE IN PRODUCTION
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
         user = User.query.filter_by(username=username).first()
-        if user and password == user.password:
+        if user and checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
             login_user(user)
             print("logged in user:", user.username)
         else:
-            return render_template("login.html")
+            return redirect("/")
         return redirect("/projects")
     return render_template("login.html")
 
