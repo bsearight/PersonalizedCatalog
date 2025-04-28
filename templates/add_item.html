@@ -2,7 +2,7 @@
 {% block title %}Add Item{% endblock %}
 {% block content %}
 <button onclick="history.back()" style="background-color: #12263A" class="btn btn-secondary mb-4">Back</button>
-<h1>Adding Materials to {{ project.name }}:</h1>
+<h1>Adding Item to {{ project.name }}:</h1>
 <form role="search" action="/add_item" method="GET">
     <input type="hidden" name="project" value="{{ project.id }}">
     <input name="query" class="form-control" type="search" placeholder="Search" aria-label="Search" style="width: 300px; margin: 20px;">

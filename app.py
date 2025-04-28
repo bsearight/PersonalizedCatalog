@@ -106,10 +106,14 @@ def database_getSupplies():
     return supplies if supplies else []
 def database_getProject(project_id):
     project = db.session.get(Project, project_id)
-    return project if project else None
+    if project and project.owner == current_user.id:
+        return project
+    return None
 def database_getSupply(supply_id):
     supply = db.session.get(Supply, supply_id)
-    return supply if supply else None
+    if supply and supply.owner == current_user.id:
+        return supply
+    return None
 def database_findSupply(supply_name):
     supplies = Supply.query.filter(Supply.name.like(f"%{supply_name}%"), Supply.owner == current_user.id).all()
     return supplies if supplies else []
