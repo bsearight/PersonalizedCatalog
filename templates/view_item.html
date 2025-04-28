@@ -41,7 +41,9 @@ function confirmDelete() {
     <p>No additional images available.</p>
   {% endif %}
   {% for image in item_details.images %}
-  <img src="{{ image }}" alt="{{ image }}" class="img-fluid" style="max-width: 200px; max-height: 200px;"/>
+    <button onclick="window.location.href='{{ image }}'" style="background-color: #F4D1AE" type="button" class="btn btn-secondary mb-4">
+      <img src="{{ image }}" alt="{{ image }}" class="img-fluid" style="max-width: 200px; max-height: 200px;"/>
+    </button>
   {% endfor %}
 </div>
   <div style="white-space: pre-wrap;"></div>

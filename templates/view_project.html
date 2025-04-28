@@ -17,22 +17,24 @@ function confirmDelete() {
 <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 <div class="project-grid" style="background-color: #C2D6CE">
   <div class="image-section">
-    <img src="{{ project_details.image }}" alt="Project Image" height="400" />
+    <button onclick="window.location.href='{{ project_details.image }}'" style="background-color: #F4EDEA" type="button" class="btn btn-secondary mb-4">
+      <img src="{{ project_details.image }}" alt="Project Image" height="400" />
+    </button>
     <br>
     <h3>Additional Images:</h3>
     {% if project_details.images == [] %}
       <p>No additional images available.</p>
     {% endif %}
     {% for image in project_details.images %}
-      <img src="{{ image }}" alt="Additional Image" class="img-fluid" style="max-width: 200px; max-height: 200px;" />
+      <button onclick="window.location.href='{{ image }}'" style="background-color: #06BCC1" type="button" class="btn btn-secondary mb-4">
+        <img src="{{ image }}" alt="Additional Image" class="img-fluid" style="max-width: 200px; max-height: 200px;" />
+      </button>
     {% endfor %}
   </div>
   <div class="row details-section" style="font-family: serif">
     <h1>{{ project_details.name }}</h1>
     <h2>Description: {{ project_details.description }}</h2>
     <h3>Sale Price: ${{ project_details.sale_price }}</h3>
-    <h3>Notes:</h3>
-    <div style="white-space: pre-wrap;">{{ project_details.notes }}</div>
     <h3>Materials:</h3>
     <dl>
       <dt>Material</dt>
@@ -44,5 +46,24 @@ function confirmDelete() {
     </dl>
   </div>
 </div>
-
+<div style="white-space: pre-wrap;"></div>
+  <button type="button" class="collapsible">Notes</button>
+  <div class="content">
+  <p>{{ project_details.notes }}</p>
+  <script>
+  var coll = document.getElementsByClassName("collapsible");
+  var i;
+  for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+      this.classList.toggle("active");
+      var content = this.nextElementSibling;
+      if (content.style.display === "block") {
+        content.style.display = "none";
+      } else {
+        content.style.display = "block";
+      }
+    });
+  }
+  </script>
+</div>
 {% endblock %}
