@@ -35,6 +35,13 @@ class Project(db.Model):
     sale_price = db.Column(db.Numeric(10, 2))
     notes = db.Column(db.Text)
     owner = db.Column(db.Integer, db.ForeignKey('user.id'))
+    items = db.relationship("ProjectItem", backref="project")
+
+class ProjectItem(db.Model):
+    __tablename__ = 'project_item'
+    id = db.Column(db.Integer, primary_key=True)
+    project_id = db.Column(db.Integer, db.ForeignKey('project.id'))
+    item_id = db.Column(db.Integer, db.ForeignKey('supply.id'))
 
 class Supply(db.Model):
     __tablename__ = 'supply'
@@ -49,6 +56,7 @@ class Supply(db.Model):
     rating = db.Column(db.Numeric(3, 2))
     notes = db.Column(db.Text)
     image = db.Column(db.String(255))
+    project_items = db.relationship("ProjectItem", backref="supply")
     owner = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 def database_insert(data):
@@ -57,6 +65,8 @@ def database_insert(data):
     elif isinstance(data, Project):
         db.session.add(data)
     elif isinstance(data, Supply):
+        db.session.add(data)
+    elif isinstance(data, ProjectItem):
         db.session.add(data)
     db.session.commit()
 def database_update(data):
@@ -183,6 +193,7 @@ def view_project_id(project_id):
         "image": project.image,
         "notes": project.notes,
         "sale_price": project.sale_price,
+        "items": [item for item in project.items],
     }
     return render_template("view_project.html", project_details=project_details)
 
@@ -251,6 +262,22 @@ def delete_project(project_id):
     database_deleteProject(project_id)
     return redirect("/projects")
 
+@app.route("/add_item", methods=["GET", "POST"])
+@login_required
+def add_item():
+    project = database_getProject(request.args.get("project", None))
+    item = database_getSupply(request.args.get("item", None))
+    if project and item:
+        database_insert(ProjectItem(project_id=project.id, item_id=item.id))
+        return redirect("/view_project/" + str(project.id))
+    query = request.args.get("query", None)
+    if project and query:
+        results = database_multiparameter_item_search(query)
+        return render_template("add_item.html", project=project, results=results)
+    if project:
+        return render_template("add_item.html", project=project, results=[])
+    return redirect("/projects")
+        
 @app.route("/items")
 @login_required
 def items():
