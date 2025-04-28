@@ -73,7 +73,7 @@
         <h5>Additional Images:</h5>
       {% endif %}
       {% for item in item_details.images %}
-      <img src="{{ item }}" alt="[Item Image]" class="img-fluid" style="max-width: 200px; max-height: 200px;">
+      <img src="{{ item }}" alt="[Item Image]" class="img-fluid" style="max-width: 200px; max-height: 200px;"><a href="/delete_item_image?path={{ item }}" class="btn btn-danger btn-sm" style="margin-left: 10px;">Delete</a>
       {% endfor %}
       <input type="file" id="item_images" name="item_images" class="form-control" accept="image/*" multiple>
     </div>

@@ -134,6 +134,16 @@ def database_deleteProject(project_id):
     if project:
         db.session.delete(project)
         db.session.commit()
+def database_deleteSupplyImage(image_path):
+    image = SupplyImage.query.filter(SupplyImage.image_path == image_path).first()
+    if image and image.supply.owner == current_user.id:
+        db.session.delete(image)
+        db.session.commit()
+def database_deleteProjectImage(image_path):
+    image = ProjectImage.query.filter(ProjectImage.image_path == image_path).first()
+    if image and image.project.owner == current_user.id:
+        db.session.delete(image)
+        db.session.commit()
 def database_multiparameter_item_search(search_terms):
     terms = search_terms.split(' ')
     OWNER_CONDITION = Supply.owner == current_user.id
@@ -284,6 +294,7 @@ def edit_project(project_id):
             "sale_price": project.sale_price,
             "image": project.image,
             "notes": project.notes,
+            "images": [img.image_path for img in project.images]
         }
         return render_template("edit_project.html", project_details=project_details)
 
@@ -440,6 +451,22 @@ def delete_item(item_id):
         return redirect("/items")
     database_deleteItem(item_id)
     return redirect("/items")
+
+@app.route("/delete_item_image")
+@login_required
+def delete_item_image():
+    image_path = request.args.get("path")
+    if image_path:
+        database_deleteSupplyImage(image_path)
+    return redirect("/items")
+
+@app.route("/delete_project_image")
+@login_required
+def delete_project_image():
+    image_path = request.args.get("path")
+    if image_path:
+        database_deleteProjectImage(image_path)
+    return redirect("/projects")
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
