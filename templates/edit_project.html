@@ -26,13 +26,17 @@
       <input type="hidden" name="project_image_path" value="{{ project_details.image }}">
     </div>
     <div class="mb-3">
-      <label for="project_additional_images" class="form-label">Additional Images</label>
-      <input type="file" id="project_additional_images" name="project_additional_images" class="form-control" accept="image/*" multiple>
-      <div class="mb-2 mt-2">
-        {% for image in project_details.images %}
-          <img src="{{ image }}" alt="[Additional Image Display]" class="img-fluid" style="max-width: 200px; max-height: 200px;">
-        {% endfor %}
-      </div>
+      <br>
+      {% if project_details.images == [] %}
+        <p>No additional images available.</p>
+      {% endif %}
+      {% if project_details.images != [] %}
+        <h5>Additional Images:</h5>
+      {% endif %}
+      {% for project in project_details.images %}
+      <img src="{{ project }}" alt="[Project Image]" class="img-fluid" style="max-width: 200px; max-height: 200px;"><a href="/delete_project_image?path={{ project }}" class="btn btn-danger btn-sm" style="margin-left: 10px;">Delete</a>
+      {% endfor %}
+      <input type="file" id="project_images" name="project_images" class="form-control" accept="image/*" multiple>
     </div>
     <div class="mb-3">
       <label for="project_notes" class="form-label">Notes</label>
