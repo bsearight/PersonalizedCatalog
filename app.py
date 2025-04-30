@@ -158,6 +158,7 @@ def database_deleteProjectImage(image_path):
     image = ProjectImage.query.filter(ProjectImage.image_path == image_path).first()
     if image and image.project.owner == current_user.id:
         db.session.delete(image)
+        db.session.commit()
 def database_deleteProjectItem(project_item_id):
     project_item = db.session.get(ProjectItem, project_item_id)
     if project_item:
@@ -243,7 +244,7 @@ def create_project():
         name = request.form.get("project_name", "Unnamed Project")
         description = request.form.get("project_description", "No Description")
         notes = request.form.get("project_notes", "No Notes")
-        sale_price = request.form.get("project_sale_price", "0")
+        sale_price = request.form.get("project_sale_price", 0.0, type=float)
         image = request.files['project_image']
         image_path = ""
         if image and image.filename:
@@ -274,7 +275,7 @@ def edit_project(project_id):
     if request.method == "POST":
         name = request.form.get("project_name", "Unnamed Project")
         description = request.form.get("project_description", "No Description")
-        sale_price = request.form.get("project_sale_price", "0")
+        sale_price = request.form.get("project_sale_price", 0.0, type=float)
         notes = request.form.get("project_notes", "No Notes")
         image_path_pre = request.form.get("project_image_path", "No Image")
         image_path = ""

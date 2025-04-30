@@ -6,7 +6,7 @@
 <button onclick="confirmDelete()" type="button" style="background-color: #F4D1AE" class="btn btn-secondary mb-4">Delete</button>
 <script>
 function confirmDelete() {
-  if (confirm("Are you sure you want to delete this item?")) {
+  if (confirm("Are you sure you want to delete this project?")) {
     window.location.href = "/delete_project/{{ project_details.id }}";
   } else {
     // do nothing lol
@@ -18,7 +18,7 @@ function confirmDelete() {
 <div class="project-grid" style="background-color: #C2D6CE">
   <div class="image-section">
     <button onclick="window.location.href='{{ project_details.image }}'" style="background-color: #F4EDEA" type="button" class="btn btn-secondary mb-4">
-      <img src="{{ project_details.image }}" alt="Project Image" height="400" />
+      <img src="{{ project_details.image }}" alt="Project Image"/>
     </button>
     <br>
     <h3>Additional Images:</h3>

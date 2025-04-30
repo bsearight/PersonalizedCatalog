@@ -72,18 +72,18 @@
       {% if item_details.images != [] %}
         <h5>Additional Images:</h5>
       {% endif %}
-      {% for item in item_details.images %}
       <script>
-        function confirmDelete() {
+        function confirmDelete(imagePath) {
           if (confirm("Are you sure you want to delete this image?")) {
-            window.location.href = "/delete_item_image?path={{ item }}";
+            window.location.href = "/delete_item_image?path=" + encodeURIComponent(imagePath);
           } else {
             // do nothing lol
           }
         }
       </script>
-      <img src="{{ item }}" alt="[Item Image]" class="img-fluid" style="max-width: 200px; max-height: 200px;">
-      <button onclick="confirmDelete()" style="margin-left: 10px;" type="button" class="btn btn-danger btn-sm">Delete</button>
+      {% for image in item_details.images %}
+      <img src="{{ image }}" alt="[Item Image]" class="img-fluid" style="max-width: 200px; max-height: 200px;">
+      <button onclick="confirmDelete('{{ image }}')" type="button" class="btn btn-danger btn-sm" style="margin-left: 10px;">Delete</button>
       {% endfor %}
       <input type="file" id="item_images" name="item_images" class="form-control" accept="image/*" multiple>
     </div>
