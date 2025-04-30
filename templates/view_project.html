@@ -38,47 +38,49 @@ function confirmDelete() {
     <h3>Notes:</h3>
     <div style="white-space: pre-wrap;">{{ project_details.notes }}</div>
     <div class="list-group" aria-current="true">
-      <h3>Item:</h3>
+      <h3>Items:</h3>
       {% if not project_details.items %}
         <div style="white-space: pre-wrap;">No items found.</div>
       {% endif %}
       </div>
       {% for item in project_details['items'] %}
-        <div class="list-group-item list-group-item-action">
-          <img class="img-fluid" src="{{ item.supply.image }}" alt="Item Image" style="max-width: 200px; max-height: 200px;">
-          <div class="d-flex gap-2 justify-content-between align-items-center">
-            <h5 class="mb-1">{{ item.supply.name }}</h5>
-            <small>{{ item.supply.item_type }}</small>
+        <div class="card rounded mb-3">
+          <div class="row g-0 align-items-center">
+            <div class="col-md-3 text-center">
+              <img src="{{ item.supply.image }}" alt="Item Image" class="img-fluid rounded-start" style="max-width: 200px; max-height:200px;">
+            </div>
+            <div class="col-md-9">
+              <div class="card-body">
+                <!-- row 1: important stuff -->
+                <div class="row">
+                  <div class="col-6">
+                    <h5 class="mb-0">{{ item.supply.name }}</h5>
+                  </div>
+                  <div class="col-6 text-end">
+                    <h5 class="mb-0">${{ item.supply.cost }}</h5>
+                  </div>
+                </div>
+                <!-- row 2: details -->
+                <div class="row mt-2">
+                  <div class="col-12 text-center">
+                    <small>{{ item.supply.brand }} &middot; {{ item.supply.color }} &middot; {{ item.supply.item_type }}</small>
+                  </div>
+                </div>
+                <!-- row 3: remove button -->
+                <div class="row mt-2">
+                  <div class="col-12 text-center">
+                    <button onclick="window.location.href='/remove_item/{{ item.id }}'" type="button" class="btn btn-secondary">
+                      Remove Item
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="d-flex gap-2 justify-content-between align-items-center">
-            <small>{{ item.supply.brand }}</small>
-            <small>{{ item.supply.color }}</small>
-          </div>
-          <button onclick="window.location.href='/remove_item/{{ item.id }}'" type="button" class="btn btn-secondary mb-4">Remove Item</button>
         </div>
       {% endfor %}
       <button onclick="window.location.href='/add_item?project={{ project_details.id }}'" style="background-color: #06BCC1" type="button" class="btn btn-secondary mb-4">Add Item</button>
     </div>
   </div>
-</div>
-<div style="white-space: pre-wrap;"></div>
-  <button type="button" class="collapsible">Notes</button>
-  <div class="content">
-  <p>{{ project_details.notes }}</p>
-  <script>
-  var coll = document.getElementsByClassName("collapsible");
-  var i;
-  for (i = 0; i < coll.length; i++) {
-    coll[i].addEventListener("click", function() {
-      this.classList.toggle("active");
-      var content = this.nextElementSibling;
-      if (content.style.display === "block") {
-        content.style.display = "none";
-      } else {
-        content.style.display = "block";
-      }
-    });
-  }
-  </script>
 </div>
 {% endblock %}

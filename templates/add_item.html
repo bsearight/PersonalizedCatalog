@@ -9,13 +9,21 @@
 </form>
 {% if results %}
     {% for result in results %}
-        <div class="result">
-            <p style="color: #16425B; font-weight: bold;">{{ result.name }}</p>
-            <p>{{ result.item_type }}</p>
-            <p>{{ result.brand }}</p>
-            <p>{{ result.color }}</p>
-            <img src="{{ result.image }}" alt="Image" style="max-width: 200px; max-height: 200px;">
-            <button onclick="window.location.href='/add_item?project={{ project.id }}&item={{ result.id }}'" style="background-color: #06BCC1" type="button" class="btn btn-secondary mb-4">Add to Project</button>
+        <div class="result mb-4">
+            <div class="row align-items-center">
+                <div class="col-12 col-md-3 text-center">
+                    <img src="{{ result.image }}" alt="Image" class="img-fluid" style="max-height: 200px; width: auto; object-fit: contain;">
+                </div>
+                <div class="col-12 col-md-6">
+                    <h3 style="color: #16425B; font-weight: bold;">{{ result.name }}</h3>
+                    <p>Type: {{ result.item_type }}</p>
+                    <p>Brand: {{ result.brand }}</p>
+                    <p>Color: {{ result.color }}</p>
+                </div>
+                <div class="col-12 col-md-3 d-flex align-items-center justify-content-center">
+                    <button onclick="window.location.href='/add_item?project={{ project.id }}&item={{ result.id }}'" style="background-color: #06BCC1" class="btn btn-secondary">Add to Project</button>
+                </div>
+            </div>
             <hr>
         </div>
     {% endfor %}

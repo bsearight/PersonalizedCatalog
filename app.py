@@ -178,7 +178,7 @@ def database_multiparameter_item_search(search_terms):
             score_expr = condition if score_expr is None else score_expr + condition
 
     query = Supply.query.add_columns(score_expr.label("score")).filter(OWNER_CONDITION).filter(score_expr > 0)
-    query = query.order_by(desc("score"))
+    query = query.order_by(desc("score")).limit(25)
     
     scored_results = query.all()
     search_results = [row[0] for row in scored_results]
