@@ -1,0 +1,25 @@
+{% extends "projects.html" %}
+{% block title %}Add Item{% endblock %}
+{% block content %}
+<button onclick="history.back()" style="background-color: #12263A" class="btn btn-secondary mb-4">Back</button>
+<h1>Adding Item to {{ project.name }}:</h1>
+<form role="search" action="/add_item" method="GET">
+    <input type="hidden" name="project" value="{{ project.id }}">
+    <input name="query" class="form-control" type="search" placeholder="Search" aria-label="Search" style="width: 300px; margin: 20px;">
+</form>
+{% if results %}
+    {% for result in results %}
+        <div class="result">
+            <p style="color: #16425B; font-weight: bold;">{{ result.name }}</p>
+            <p>{{ result.item_type }}</p>
+            <p>{{ result.brand }}</p>
+            <p>{{ result.color }}</p>
+            <img src="{{ result.image }}" alt="Image" style="max-width: 200px; max-height: 200px;">
+            <button onclick="window.location.href='/add_item?project={{ project.id }}&item={{ result.id }}'" style="background-color: #06BCC1" type="button" class="btn btn-secondary mb-4">Add to Project</button>
+            <hr>
+        </div>
+    {% endfor %}
+{% else %}
+    <h1>No Results Found or Start Searching</h1>
+{% endif %}
+{% endblock %}

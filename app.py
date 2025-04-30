@@ -43,6 +43,13 @@ class Project(db.Model):
     notes = db.Column(db.Text)
     images = db.relationship('ProjectImage', backref='project', lazy=True)
     owner = db.Column(db.Integer, db.ForeignKey('user.id'))
+    items = db.relationship("ProjectItem", backref="project")
+
+class ProjectItem(db.Model):
+    __tablename__ = 'project_item'
+    id = db.Column(db.Integer, primary_key=True)
+    project_id = db.Column(db.Integer, db.ForeignKey('project.id'))
+    item_id = db.Column(db.Integer, db.ForeignKey('supply.id'))
 
 class SupplyImage(db.Model):
     __tablename__ = 'supply_images'
@@ -63,6 +70,7 @@ class Supply(db.Model):
     rating = db.Column(db.Numeric(3, 2))
     notes = db.Column(db.Text)
     image = db.Column(db.String(255))
+    project_items = db.relationship("ProjectItem", backref="supply")
     owner = db.Column(db.Integer, db.ForeignKey('user.id'))
     images = db.relationship('SupplyImage', backref='supply', lazy=True)
 
@@ -76,6 +84,8 @@ def database_insert(data):
     elif isinstance(data, SupplyImage):
         db.session.add(data)
     elif isinstance(data, ProjectImage):
+        db.session.add(data)
+    elif isinstance(data, ProjectItem):
         db.session.add(data)
     db.session.commit()
 def database_update(data):
@@ -115,10 +125,14 @@ def database_getSupplies():
     return supplies if supplies else []
 def database_getProject(project_id):
     project = db.session.get(Project, project_id)
-    return project if project else None
+    if project and project.owner == current_user.id:
+        return project
+    return None
 def database_getSupply(supply_id):
     supply = db.session.get(Supply, supply_id)
-    return supply if supply else None
+    if supply and supply.owner == current_user.id:
+        return supply
+    return None
 def database_findSupply(supply_name):
     supplies = Supply.query.filter(Supply.name.like(f"%{supply_name}%"), Supply.owner == current_user.id).all()
     return supplies if supplies else []
@@ -144,6 +158,10 @@ def database_deleteProjectImage(image_path):
     image = ProjectImage.query.filter(ProjectImage.image_path == image_path).first()
     if image and image.project.owner == current_user.id:
         db.session.delete(image)
+def database_deleteProjectItem(project_item_id):
+    project_item = db.session.get(ProjectItem, project_item_id)
+    if project_item:
+        db.session.delete(project_item)
         db.session.commit()
 def database_multiparameter_item_search(search_terms):
     terms = search_terms.split(' ')
@@ -213,7 +231,8 @@ def view_project_id(project_id):
         "image": project.image,
         "notes": project.notes,
         "sale_price": project.sale_price,
-        "images": [img.image_path for img in project.images]
+        "images": [img.image_path for img in project.images],
+        "items": [item for item in project.items],
     }
     return render_template("view_project.html", project_details=project_details)
 
@@ -308,6 +327,30 @@ def delete_project(project_id):
     database_deleteProject(project_id)
     return redirect("/projects")
 
+@app.route("/add_item", methods=["GET", "POST"])
+@login_required
+def add_item():
+    project = database_getProject(request.args.get("project", None))
+    item = database_getSupply(request.args.get("item", None))
+    if project and item:
+        database_insert(ProjectItem(project_id=project.id, item_id=item.id))
+        return redirect("/view_project/" + str(project.id))
+    query = request.args.get("query", None)
+    if project and query:
+        results = database_multiparameter_item_search(query)
+        return render_template("add_item.html", project=project, results=results)
+    if project:
+        return render_template("add_item.html", project=project, results=[])
+    return redirect("/projects")
+
+@app.route("/remove_item/<item_id>")
+@login_required
+def remove_item(item_id):
+    project_item = db.session.get(ProjectItem, item_id)
+    if project_item:
+        database_deleteProjectItem(project_item.id)
+    return redirect("/view_project/" + str(project_item.project_id))
+        
 @app.route("/items")
 @login_required
 def items():

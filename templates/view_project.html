@@ -35,15 +35,30 @@ function confirmDelete() {
     <h1>{{ project_details.name }}</h1>
     <h2>Description: {{ project_details.description }}</h2>
     <h3>Sale Price: ${{ project_details.sale_price }}</h3>
-    <h3>Materials:</h3>
-    <dl>
-      <dt>Material</dt>
-      <dd>material description</dd>
-      <dt>Material</dt>
-      <dd>material description</dd>
-      <dt>Material</dt>
-      <dd>material description</dd>
-    </dl>
+    <h3>Notes:</h3>
+    <div style="white-space: pre-wrap;">{{ project_details.notes }}</div>
+    <div class="list-group" aria-current="true">
+      <h3>Item:</h3>
+      {% if not project_details.items %}
+        <div style="white-space: pre-wrap;">No items found.</div>
+      {% endif %}
+      </div>
+      {% for item in project_details['items'] %}
+        <div class="list-group-item list-group-item-action">
+          <img class="img-fluid" src="{{ item.supply.image }}" alt="Item Image" style="max-width: 200px; max-height: 200px;">
+          <div class="d-flex gap-2 justify-content-between align-items-center">
+            <h5 class="mb-1">{{ item.supply.name }}</h5>
+            <small>{{ item.supply.item_type }}</small>
+          </div>
+          <div class="d-flex gap-2 justify-content-between align-items-center">
+            <small>{{ item.supply.brand }}</small>
+            <small>{{ item.supply.color }}</small>
+          </div>
+          <button onclick="window.location.href='/remove_item/{{ item.id }}'" type="button" class="btn btn-secondary mb-4">Remove Item</button>
+        </div>
+      {% endfor %}
+      <button onclick="window.location.href='/add_item?project={{ project_details.id }}'" style="background-color: #06BCC1" type="button" class="btn btn-secondary mb-4">Add Item</button>
+    </div>
   </div>
 </div>
 <div style="white-space: pre-wrap;"></div>
