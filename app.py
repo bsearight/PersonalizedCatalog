@@ -130,6 +130,11 @@ def database_deleteProject(project_id):
     if project:
         db.session.delete(project)
         db.session.commit()
+def database_deleteProjectItem(project_item_id):
+    project_item = db.session.get(ProjectItem, project_item_id)
+    if project_item:
+        db.session.delete(project_item)
+        db.session.commit()
 def database_multiparameter_item_search(search_terms):
     terms = search_terms.split(' ')
     OWNER_CONDITION = Supply.owner == current_user.id
@@ -281,6 +286,14 @@ def add_item():
     if project:
         return render_template("add_item.html", project=project, results=[])
     return redirect("/projects")
+
+@app.route("/remove_item/<item_id>")
+@login_required
+def remove_item(item_id):
+    project_item = db.session.get(ProjectItem, item_id)
+    if project_item:
+        database_deleteProjectItem(project_item.id)
+    return redirect("/view_project/" + str(project_item.project_id))
         
 @app.route("/items")
 @login_required

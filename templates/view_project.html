@@ -42,6 +42,7 @@ function confirmDelete() {
             <small>{{ item.supply.brand }}</small>
             <small>{{ item.supply.color }}</small>
           </div>
+          <button onclick="window.location.href='/remove_item/{{ item.id }}'" type="button" class="btn btn-secondary mb-4">Remove Item</button>
         </div>
       {% endfor %}
       <button onclick="window.location.href='/add_item?project={{ project_details.id }}'" style="background-color: #06BCC1" type="button" class="btn btn-secondary mb-4">Add Item</button>
