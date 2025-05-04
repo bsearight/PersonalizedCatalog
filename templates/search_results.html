@@ -1,7 +1,7 @@
 {% extends "projects.html" %}
 {% block title %}Search Results{% endblock %}
 {% block content %}
-<button onclick="history.back()" class="btn btn-outline-primary mb-4">← Back</button>
+<button onclick="history.back()" style = "background-color: #12263A" class="btn btn-secondary mb-4">Back</button>
 <h1 class="text-center text-primary fw-bold">Search Results</h1>
 <hr>
 <div class="container">
@@ -36,7 +36,7 @@
                             <p class="text-muted">Color: {{ result.color }}</p>
                         </div>
                         <div class="col-md-3 text-center">
-                            <button onclick="window.location.href='/view_item/{{ result.id }}'" class="btn btn-success">🔍 View Item</button>
+                            <button onclick="window.location.href='/view_item/{{ result.id }}'" style = "background-color: #EAE2B7" class="btn btn-success">🔍 View Item</button>
                         </div>
                     </div>
                 </div>
