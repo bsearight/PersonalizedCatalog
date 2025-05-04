@@ -33,6 +33,9 @@ function confirmDelete() {
         <span class="fa fa-star {% if i <= item_details.rating %}checked{% endif %}"></span>
     {% endfor %}
     </div>
+     <h3>Notes:</h3>
+    <div style="white-space: pre-wrap;">{{ project_details.notes }}</div>
+    <div class="list-group" aria-current="true">
   </div>
 </div>
 <div class="image-section">
@@ -45,25 +48,5 @@ function confirmDelete() {
       <img src="{{ image }}" alt="{{ image }}" class="img-fluid" style="max-width: 200px; max-height: 200px;"/>
     </button>
   {% endfor %}
-</div>
-  <div style="white-space: pre-wrap;"></div>
-  <button type="button" class="collapsible">Notes</button>
-  <div class="content">
-  <p>{{ item_details.notes }}</p>
-  <script>
-  var coll = document.getElementsByClassName("collapsible");
-  var i;
-  for (i = 0; i < coll.length; i++) {
-    coll[i].addEventListener("click", function() {
-      this.classList.toggle("active");
-      var content = this.nextElementSibling;
-      if (content.style.display === "block") {
-        content.style.display = "none";
-      } else {
-        content.style.display = "block";
-      }
-    });
-  }
-  </script>
 </div>
 {% endblock %}
