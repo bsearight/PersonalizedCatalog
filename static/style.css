@@ -246,22 +246,6 @@ a:hover {
   border-radius: 50%;
 }
 
-.collapsible {
-  background-color: #F4D1AE;
-  color: #12263A;
-  cursor: pointer;
-  padding: 18px;
-  width: 100%;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 15px;
-}
-
-.active, .collapsible:hover {
-  background-color: #F4EDEA;
-}
-
 .content {
   padding: 0 18px;
   display: none;

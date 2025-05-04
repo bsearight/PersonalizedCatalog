@@ -2,7 +2,7 @@
 {% block title %}Search Results{% endblock %}
 {% block content %}
 <button onclick="history.back()" style = "background-color: #12263A" class="btn btn-secondary mb-4">Back</button>
-<h1 class="text-center text-primary fw-bold" style= "text-decoration-color: black">Search Results</h1>
+<h1 class="text-center fw-bold">Search Results</h1>
 <hr>
 <div class="container">
     {% if results %}
@@ -10,8 +10,8 @@
             {% for result in results %}
                 <div class="card shadow-sm p-3 mb-4 border">
                     <div class="card-body">
-                        <h3 class="fw-bold text-primary">
-                            <a href="/view_project/{{ result.id }}" class="text-decoration-none text-primary">{{ result.name }}</a>
+                        <h3 class="fw-bold">
+                            <a href="/view_project/{{ result.id }}" class="text-decoration-none">{{ result.name }}</a>
                         </h3>
                         <p class="text-muted">{{ result.description }}</p>
                         <div class="text-center">
