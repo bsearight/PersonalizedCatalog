@@ -1,13 +1,13 @@
 body{
-    background-color:#F3F3F4;
+    background-color:#C2D6CE;
     color: black
 }
 a{
     color: black
 }
 
-/*(nav{
-    background-color: #F3F3F4;
+nav{
+    background-color: #12263A;
     width: 100%;
 }
 nav ul{
@@ -20,22 +20,80 @@ nav ul li{
     padding: 5px;
 }
 nav ul li a:link, nav ul li a:visited{
-    color:#283845;
+    color: #98D2EB;
 }
 nav ul li a:hover{
-    color: #16425B;
+    color:#59A5D8;
 }
 nav ul li.selected{
-    background-color: #80A4ED;
+    background-color: #06BCC1;
 }
-table tr th{
-    border-style: solid;
-    padding: 4px;
+
+
+
+.item-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 10px;
+  padding: 20px;
+  width: 100%;
 }
-table tr td{
-    border-style: solid;
-    padding: 4px;
-}*/
+
+.row {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.row:nth-child(odd) {
+  background-color: #F4EDEA;
+}
+
+.row:nth-child(even) {
+  background-color: #F4D1AE;
+}
+
+.row img {
+  width: 100%;
+  height: auto;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.image-section img {
+  width: 100%;
+  height: auto;
+}
+
+.details-section {
+  background-color: #C5D8D1;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  border: 1px solid #ddd;
+}
+
+.row:nth-child(even) {
+  background-color: #F4EDEA;
+}
+
+h1, h2, h3 {
+  margin: 5px 0;
+}
+
+dl dt {
+  font-weight: bold;
+}
+
+dl dd {
+  margin-left: 15px;
+}
 
 
 .title{
@@ -114,28 +172,58 @@ h4{
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
-.star-rating {
-    direction: rtl;
-    display: inline-block;
-    cursor: pointer;
-}
 
-.star-rating input {
-    display: none;
+.star-cb-group {
+  /* remove inline-block whitespace */
+  font-size: 0;
+  /* flip the order so we can use the + and ~ combinators */
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  /* the hidden clearer */
 }
-
-.star-rating label {
-    color: #ddd;
-    font-size: 24px;
-    padding: 0 2px;
-    cursor: pointer;
-    transition: all 0.2s ease;
+.star-cb-group * {
+  font-size: 32px;
 }
-
-.star-rating label:hover,
-.star-rating label:hover~label,
-.star-rating input:checked~label {
-    color: #ffc107;
+.star-cb-group > input {
+  display: none;
+}
+.star-cb-group > input + label {
+  /* only enough room for the star */
+  display: inline-block;
+  overflow: hidden;
+  text-indent: 9999px;
+  width: 1em;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.star-cb-group > input + label:before {
+  display: inline-block;
+  text-indent: -9999px;
+  content: "☆";
+  color: #888;
+}
+.star-cb-group > input:checked ~ label:before, .star-cb-group > input + label:hover ~ label:before, .star-cb-group > input + label:hover:before {
+  content: "★";
+  color: #F4D1AE;
+  text-shadow: 0 0 1px #333;
+}
+.star-cb-group > .star-cb-clear + label {
+  text-indent: -9999px;
+  width: .5em;
+  margin-left: -.5em;
+}
+.star-cb-group > .star-cb-clear + label:before {
+  width: .5em;
+}
+.star-cb-group:hover > input + label:before {
+  content: "☆";
+  color: #888;
+  text-shadow: none;
+}
+.star-cb-group:hover > input + label:hover ~ label:before, .star-cb-group:hover > input + label:hover:before {
+  content: "★";
+  color: #F4D1AE;
+  text-shadow: 0 0 1px #333;
 }
 
 a {
@@ -158,27 +246,11 @@ a:hover {
   border-radius: 50%;
 }
 
-.collapsible {
-  background-color: #eee;
-  color: #444;
-  cursor: pointer;
-  padding: 18px;
-  width: 100%;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 15px;
-}
-
-.active, .collapsible:hover {
-  background-color: #ccc;
-}
-
 .content {
   padding: 0 18px;
   display: none;
   overflow: hidden;
-  background-color: #f1f1f1;
+  background-color: #F8E0C9;
 }
 .checked {
   color: orange;

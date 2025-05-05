@@ -1,25 +1,58 @@
-{% extends "index.html" %}
-{% block title %} Edit Project {% endblock %}
+{% extends "projects.html" %}
+{% block title %}Edit Project{% endblock %}
 {% block content %}
-<h1>Edit Project</h1>
-<button onclick="history.back()" class = "previous round">Back</button>
-<form method="POST" action="/edit_project/{{ project_details.id }}" enctype="multipart/form-data">
-    <label for="project_name">Name</label>
-    <input type="text" name="project_name" placeholder="Enter name" value="{{ project_details.name }}" required>
-    <hr>
-    <label for="project_description">Description</label>
-    <input type="text" name="project_description" placeholder="Enter description" value="{{ project_details.description }}" required>
-    <hr>
-    <label for="project_image">Image</label>
-    <br>
-    <img src="{{ project_details.image }}" alt="[Project Image Display]" style="max-width: 200px; max-height: 200px;">
-    <br>
-    <input type="file" name="project_image" accept="image/*">
-    <input type="hidden" name="project_image_path" value="{{ project_details.image }}">
-    <hr>
-    <label for="project_notes">Notes</label>
-    <textarea name="project_notes" placeholder="Enter notes">{{ project_details.notes }}</textarea>
-    <hr>
-    <button type="submit">Submit</button>
-</form>
+<div class="container mt-5" style="background-color: #C2D6CE">
+  <h1 class="text-center mb-4" style="font-family: serif">Edit Project</h1>
+  <button onclick="history.back()" style = "background-color: #12263A" class="btn btn-secondary mb-4">Back</button>
+  <form method="POST" action="/edit_project/{{ project_details.id }}" enctype="multipart/form-data" class="shadow p-4 bg-light rounded">
+    <div class="mb-3">
+      <label for="project_name" class="form-label">Name</label>
+      <input type="text" id="project_name" name="project_name" class="form-control" placeholder="Enter name" value="{{ project_details.name }}" required>
+    </div>
+    <div class="mb-3">
+      <label for="project_description" class="form-label">Description</label>
+      <input type="text" id="project_description" name="project_description" class="form-control" placeholder="Enter description" value="{{ project_details.description }}" required>
+    </div>
+    <div class="mb-3">
+      <label for="project_sale_price" class="form-label">Sale Price</label>
+      <input type="number" id="project_sale_price" name="project_sale_price" class="form-control" placeholder="Enter sale price" min="0" step="0.01" value="{{ project_details.sale_price }}">
+    </div>
+    <div class="mb-3">
+      <label for="project_image" class="form-label">Image</label>
+      <div class="mb-2">
+        <img src="{{ project_details.image }}" alt="[Project Image Display]" class="img-fluid" style="max-width: 200px; max-height: 200px;">
+      </div>
+      <input type="file" id="project_image" name="project_image" class="form-control" accept="image/*">
+      <input type="hidden" name="project_image_path" value="{{ project_details.image }}">
+    </div>
+    <div class="mb-3">
+      <br>
+      {% if project_details.images == [] %}
+        <p>No additional images available.</p>
+      {% endif %}
+      {% if project_details.images != [] %}
+        <h5>Additional Images:</h5>
+      {% endif %}
+      <script>
+        function confirmDelete(imagePath) {
+          if (confirm("Are you sure you want to delete this image?")) {
+            window.location.href = "/delete_project_image?path=" + encodeURIComponent(imagePath);
+          } else {
+            // do nothing lol
+          }
+        }
+      </script>
+      {% for image in project_details.images %}
+      <img src="{{ image }}" alt="[Project Image]" class="img-fluid" style="max-width: 200px; max-height: 200px;">
+      <button onclick="confirmDelete('{{ image }}')" type="button" class="btn btn-danger btn-sm" style="margin-left: 10px;">Delete</button>
+      {% endfor %}
+      <input type="file" id="project_images" name="project_images" class="form-control" accept="image/*" multiple>
+    </div>
+    <div class="mb-3">
+      <label for="project_notes" class="form-label">Notes</label>
+      <textarea id="project_notes" name="project_notes" class="form-control" placeholder="Enter notes" rows="4">{{ project_details.notes }}</textarea>
+    </div>
+    <button type="submit" style= "background-color: #F4D1AE" class="btn btn-primary">Submit</button>
+  </form>
+</div>
 {% endblock %}

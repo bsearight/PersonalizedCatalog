@@ -1,62 +1,70 @@
-{% extends "index.html" %}
-{% block title %} Create Item {% endblock %}
+{% extends "projects.html" %}
+{% block title %}Create Item{% endblock %}
 {% block content %}
-<h1>Create Item</h1>
-<button onclick="history.back()" class = "previous round">Back</button>
-<form method="POST" action="/create_item" enctype="multipart/form-data">
-    <label for="item_name">Name</label>
-    <input type="text" name="item_name" placeholder="Enter name" required>
-    <hr>
-    <label for="item_description">Description</label>
-    <input type="text" name="item_description" placeholder="Enter description" required>
-    <hr>
-    <label for="item_brand">Brand</label>
-    <input type="text" name="item_brand" placeholder="Enter brand">
-    <hr>
-    <label for="item_type">Item Type</label>
-    <input type="text" name="item_type" placeholder="Enter item type">
-    <hr>
-    <label for="item_purchase_link">Purchase Link</label>
-    <input type="url" name="item_purchase_link" placeholder="Enter purchase link">
-    <hr>
-    <label for="item_cost">Cost</label>
-    <input type="number" name="item_cost" placeholder="Enter cost" min="0" step="0.01">
-    <hr>
-    <div class="">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-        <div class="star-rating">
-            <div class="star-rating animated-stars">
-            <input type="radio" id="star5" name="rating" value="1">
-            <label for="star5" class="bi bi-star-filled"></label>
-            <input type="radio" id="star4" name="rating" value="2">
-            <label for="star4" class="bi bi-star-filled"></label>
-            <input type="radio" id="star3" name="rating" value="3">
-            <label for="star3" class="bi bi-star-filled"></label>
-            <input type="radio" id="star2" name="rating" value="4">
-            <label for="star2" class="bi bi-star-filled"></label>
-            <input type="radio" id="star1" name="rating" value="5">
-            <label for="star1" class="bi bi-star-filled"></label>
-        </div>
-        </div>
-        <div class="mt-3">
-            <span id="rating-value" class="h4">0</span> out of 5 stars
-        </div>
+<div class="container mt-5" style="background-color: #C2D6CE">
+  <h1 class="text-center mb-4" style="font-family: serif">Create Item</h1>
+  <button onclick="history.back()" style = "background-color: #12263A" class="btn btn-secondary mb-4">Back</button>
+  <form method="POST" action="/create_item" enctype="multipart/form-data" class="shadow p-4 bg-light rounded">
+    <div class="mb-3">
+      <label for="item_name" class="form-label">Name</label>
+      <input type="text" id="item_name" name="item_name" class="form-control" placeholder="Enter name" required>
     </div>
-    <script>
-        const starRating = document.querySelector('.star-rating');
-        const ratingValue = document.getElementById('rating-value');
-
-        starRating.addEventListener('change', function(e) {
-            ratingValue.textContent = e.target.value;
-        });
-    </script>
-    <hr>
-    <label for="item_notes">Notes</label>
-    <textarea name="item_notes" placeholder="Enter notes"></textarea>
-    <hr>
-    <label for="item_image">Image</label>
-    <input type="file" name="item_image" accept="image/*">
-    <hr>
-    <button type="submit">Submit</button>
-</form>
+    <div class="mb-3">
+      <label for="item_description" class="form-label">Description</label>
+      <input type="text" id="item_description" name="item_description" class="form-control" placeholder="Enter description" required>
+    </div>
+    <div class="mb-3">
+      <label for="item_brand" class="form-label">Brand</label>
+      <input type="text" id="item_brand" name="item_brand" class="form-control" placeholder="Enter brand">
+    </div>
+    <div class="mb-3">
+      <label for="item_type" class="form-label">Item Type</label>
+      <input type="text" id="item_type" name="item_type" class="form-control" placeholder="Enter item type">
+    </div>
+    <div class="mb-3">
+      <label for="item_color" class="form-label">Color</label>
+      <input type="text" id="item_color" name="item_color" class="form-control" placeholder="Enter color">
+    </div>
+    <div class="mb-3">
+      <label for="item_purchase_link" class="form-label">Purchase Link</label>
+      <input type="url" id="item_purchase_link" name="item_purchase_link" class="form-control" placeholder="Enter purchase link">
+    </div>
+    <div class="mb-3">
+      <label for="item_cost" class="form-label">Cost</label>
+      <input type="number" id="item_cost" name="item_cost" class="form-control" placeholder="Enter cost" min="0" step="0.01">
+    </div>
+    <div class="mb-3">
+      <label for="rating" class="form-label">Rating</label>
+      <fieldset>
+        <span class="star-cb-group">
+          <input type="radio" id="rating-5" name="rating" value="5" />
+          <label for="rating-5">5</label>
+          <input type="radio" id="rating-4" name="rating" value="4" checked="checked" />
+          <label for="rating-4">4</label>
+          <input type="radio" id="rating-3" name="rating" value="3" />
+          <label for="rating-3">3</label>
+          <input type="radio" id="rating-2" name="rating" value="2" />
+          <label for="rating-2">2</label>
+          <input type="radio" id="rating-1" name="rating" value="1" />
+          <label for="rating-1">1</label>
+          <input type="radio" id="rating-0" name="rating" value="0" class="star-cb-clear" />
+          <label for="rating-0">0</label>
+        </span>
+      </fieldset>
+    </div>
+    <div class="mb-3">
+      <label for="item_notes" class="form-label">Notes</label>
+      <textarea id="item_notes" name="item_notes" class="form-control" placeholder="Enter notes" rows="4"></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="item_image" class="form-label">Image</label>
+      <input type="file" id="item_image" name="item_image" class="form-control" accept="image/*">
+    </div>
+    <div class="mb-3">
+      <label for="item_images" class="form-label">Additional Images</label>
+      <input type="file" id="item_images" name="item_images" class="form-control" accept="image/*" multiple>
+    </div>
+    <button type="submit" style="background-color: #F4D1AE" class="btn btn-primary">Submit</button>
+  </form>
+</div>
 {% endblock %}

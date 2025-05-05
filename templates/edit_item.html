@@ -1,40 +1,93 @@
-{% extends "index.html" %}
-{% block title %} Edit Item {% endblock %}
+{% extends "projects.html" %}
+{% block title %}Edit Item{% endblock %}
 {% block content %}
-<h1>Edit Item</h1>
-<button onclick="history.back()" class = "previous round">Back</button>
-<form method="POST" action="/edit_item/{{ item_details.id }}" enctype="multipart/form-data">
-    <label for="item_name">Name</label>
-    <input type="text" name="item_name" placeholder="Enter name" value="{{ item_details.name }}" required>
-    <hr>
-    <label for="item_description">Description</label>
-    <input type="text" name="item_description" placeholder="Enter description" value="{{ item_details.description }}" required>
-    <hr>
-    <label for="item_brand">Brand</label>
-    <input type="text" name="item_brand" placeholder="Enter brand" value="{{ item_details.brand }}">
-    <hr>
-    <label for="item_type">Item Type</label>
-    <input type="text" name="item_type" placeholder="Enter item type" value="{{ item_details.item_type }}">
-    <hr>
-    <label for="item_purchase_link">Purchase Link</label>
-    <input type="url" name="item_purchase_link" placeholder="Enter purchase link" value="{{ item_details.purchase_link }}">
-    <hr>
-    <label for="item_cost">Cost</label>
-    <input type="number" name="item_cost" placeholder="Enter cost" min="0" step="0.01" value="{{ item_details.cost }}">
-    <hr>
-    <label for="item_rating">Rating</label>
-    <input type="number" name="item_rating" placeholder="Enter rating" min="1" max="5" value="{{ item_details.rating }}">
-    <hr>
-    <label for="item_notes">Notes</label>
-    <textarea name="item_notes" placeholder="Enter notes">{{ item_details.notes }}</textarea>
-    <hr>
-    <label for="item_image">Image</label>
-    <br>
-    <img src="{{ item_details.image }}" alt="[Item Image]" style="max-width: 200px; max-height: 200px;">
-    <br>
-    <input type="file" name="item_image" accept="image/*">
-    <input type="hidden" name="item_image_path" value="{{ item_details.image }}">
-    <hr>
-    <button type="submit">Submit</button>
-</form>
+<div class="container mt-5" style="background-color: #C2D6CE">
+  <h1 class="text-center mb-4" style="font-family: serif">Edit Item</h1>
+  <button onclick="history.back()" style = "background-color: #12263A" class="btn btn-secondary mb-4">Back</button>
+  <form method="POST" action="/edit_item/{{ item_details.id }}" enctype="multipart/form-data" class="shadow p-4 bg-light rounded">
+    <div class="mb-3">
+      <label for="item_name" class="form-label">Name</label>
+      <input type="text" id="item_name" name="item_name" class="form-control" placeholder="Enter name" value="{{ item_details.name }}" required>
+    </div>
+    <div class="mb-3">
+      <label for="item_description" class="form-label">Description</label>
+      <input type="text" id="item_description" name="item_description" class="form-control" placeholder="Enter description" value="{{ item_details.description }}" required>
+    </div>
+    <div class="mb-3">
+      <label for="item_brand" class="form-label">Brand</label>
+      <input type="text" id="item_brand" name="item_brand" class="form-control" placeholder="Enter brand" value="{{ item_details.brand }}">
+    </div>
+    <div class="mb-3">
+      <label for="item_type" class="form-label">Item Type</label>
+      <input type="text" id="item_type" name="item_type" class="form-control" placeholder="Enter item type" value="{{ item_details.item_type }}">
+    </div>
+    <div class="mb-3">
+      <label for="item_color" class="form-label">Color</label>
+      <input type="text" id="item_color" name="item_color" class="form-control" placeholder="Enter color" value="{{ item_details.color }}">
+    </div>
+    <div class="mb-3">
+      <label for="item_purchase_link" class="form-label">Purchase Link</label>
+      <input type="url" id="item_purchase_link" name="item_purchase_link" class="form-control" placeholder="Enter purchase link" value="{{ item_details.purchase_link }}">
+    </div>
+    <div class="mb-3">
+      <label for="item_cost" class="form-label">Cost</label>
+      <input type="number" id="item_cost" name="item_cost" class="form-control" placeholder="Enter cost" min="0" step="0.01" value="{{ item_details.cost }}">
+    </div>
+    <div class="mb-3">
+      <label for="item_rating" class="form-label">Rating</label>
+      <fieldset>
+        <span class="star-cb-group">
+          <input type="radio" id="rating-5" name="rating" value="5" {% if item_details.rating == 5 %}checked{% endif %} />
+          <label for="rating-5">5</label>
+          <input type="radio" id="rating-4" name="rating" value="4" {% if item_details.rating == 4 %}checked{% endif %} />
+          <label for="rating-4">4</label>
+          <input type="radio" id="rating-3" name="rating" value="3" {% if item_details.rating == 3 %}checked{% endif %} />
+          <label for="rating-3">3</label>
+          <input type="radio" id="rating-2" name="rating" value="2" {% if item_details.rating == 2 %}checked{% endif %} />
+          <label for="rating-2">2</label>
+          <input type="radio" id="rating-1" name="rating" value="1" {% if item_details.rating == 1 %}checked{% endif %} />
+          <label for="rating-1">1</label>
+          <input type="radio" id="rating-0" name="rating" value="0" class="star-cb-clear" {% if item_details.rating == 0 %}checked{% endif %} />
+          <label for="rating-0">0</label>
+        </span>
+      </fieldset>
+    </div>
+    <div class="mb-3">
+      <label for="item_notes" class="form-label">Notes</label>
+      <textarea id="item_notes" name="item_notes" class="form-control" placeholder="Enter notes" rows="4">{{ item_details.notes }}</textarea>
+    </div>
+    <div class="mb-3">
+      <label for="item_image" class="form-label">Image</label>
+      <div class="mb-2">
+        <img src="{{ item_details.image }}" alt="[Item Image]" class="img-fluid" style="max-width: 200px; max-height: 200px;">
+      </div>
+      <input type="file" id="item_image" name="item_image" class="form-control" accept="image/*">
+      <input type="hidden" name="item_image_path" value="{{ item_details.image }}">
+    </div>
+    <div class="mb-3">
+      <br>
+      {% if item_details.images == [] %}
+        <p>No additional images available.</p>
+      {% endif %}
+      {% if item_details.images != [] %}
+        <h5>Additional Images:</h5>
+      {% endif %}
+      <script>
+        function confirmDelete(imagePath) {
+          if (confirm("Are you sure you want to delete this image?")) {
+            window.location.href = "/delete_item_image?path=" + encodeURIComponent(imagePath);
+          } else {
+            // do nothing lol
+          }
+        }
+      </script>
+      {% for image in item_details.images %}
+      <img src="{{ image }}" alt="[Item Image]" class="img-fluid" style="max-width: 200px; max-height: 200px;">
+      <button onclick="confirmDelete('{{ image }}')" type="button" class="btn btn-danger btn-sm" style="margin-left: 10px;">Delete</button>
+      {% endfor %}
+      <input type="file" id="item_images" name="item_images" class="form-control" accept="image/*" multiple>
+    </div>
+    <button type="submit" style = "background-color: #F4D1AE" class="btn btn-primary">Submit</button>
+  </form>
+</div>
 {% endblock %}

@@ -1,22 +1,24 @@
-{% extends "index.html" %}
-{% block title %} Items {% endblock %}
+{% extends "projects.html" %}
+{% block title %}Items{% endblock %}
 {% block content %}
 <form role="search" action="/search" method="GET">
   <input name="query" class="form-control" type="search" placeholder="Search" aria-label="Search" style="width: 300px; margin: 20px;">
   <input name="type" type="hidden" value="item">
 </form>
-  <div class="album py-5 bg-light">
+  <div class="album py-5" style="background-color: #C2D6CE">
     <div class="container">
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
       {% for item in items %}
         <div class="col">
           <div class="card shadow-sm">
-            <img src="{{ item.image }}" class="card-img-top" width="100%" height="225" alt="No Image Available" />
+            <!-- can also use object-fit: cover but it will cutoff larger images -->
+            <img src="{{ item.image }}" class="img-fluid card-img-top" alt="No Image Available" style="max-height: 400px; object-fit: contain;" />
               <div class="card-body">
               <h3 class="card-text">{{ item.name }}</h3>
               <hr>
               <p class="card-text">Type: {{ item.item_type }}</p>
               <p class="card-text">Brand: {{ item.brand }}</p>
+              <p class="card-text">Color: {{ item.color }}</p>
               <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
               {% for i in range(1, 6) %}
                   <span class="fa fa-star {% if i <= item.rating %}checked{% endif %}"></span>
