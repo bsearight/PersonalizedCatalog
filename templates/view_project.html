@@ -54,7 +54,7 @@ function confirmDelete() {
                 <!-- row 1: important stuff -->
                 <div class="row">
                   <div class="col-6">
-                    <h5 class="mb-0">{{ item.supply.name }}</h5>
+                    <a href="/view_item/{{ item.supply.id }}"><h5 class="mb-0">{{ item.supply.name }}</h5></a>
                   </div>
                   <div class="col-6 text-end">
                     <h5 class="mb-0">${{ item.supply.cost }}</h5>

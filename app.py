@@ -303,7 +303,7 @@ def edit_project(project_id):
                 database_insert(new_image)
         
 
-        return redirect("/projects")
+        return redirect("/view_project/" + str(project_id))
     else:
         project = database_getProject(project_id)
         if not project:
@@ -396,7 +396,7 @@ def create_item():
         color = request.form.get("item_color", "No Color")
         purchase_link = request.form.get("item_purchase_link", "No Purchase Link")
         cost_raw = request.form.get("item_cost", "0")
-        rating_raw = request.form.get("item_rating", "0")
+        rating_raw = request.form.get("rating", "0")
         cost = float(cost_raw) if cost_raw.strip() else 0.0
         rating = float(rating_raw) if rating_raw.strip() else 0.0
         notes = request.form.get("item_notes", "No Notes")
@@ -441,9 +441,9 @@ def edit_item(item_id):
         color = request.form.get("item_color", "No Color")
         purchase_link = request.form.get("item_purchase_link", "No Purchase Link")
         cost_raw = request.form.get("item_cost", "0")
-        rating_raw = request.form.get("item_rating", "0")
-        cost = float(cost_raw) if cost_raw.strip() else 0.0
+        rating_raw = request.form.get("rating", "0")
         rating = float(rating_raw) if rating_raw.strip() else 0.0
+        cost = float(cost_raw) if cost_raw.strip() else 0.0
         notes = request.form.get("item_notes", "No Notes")
         image_path_pre = request.form.get("item_image_path", "No Image")
         image_path = ""
@@ -470,6 +470,7 @@ def edit_item(item_id):
                 image_path = f"/static/images/{filename}"
                 new_image = SupplyImage(supply_id=item_id, image_path=image_path)
                 database_insert(new_image)
+        return redirect("/view_item/" + str(item_id))
     else:
         item_details = {
             "id": supply.id,
