@@ -277,19 +277,16 @@ def edit_project(project_id):
         description = request.form.get("project_description", "No Description")
         sale_price = request.form.get("project_sale_price", 0.0, type=float)
         notes = request.form.get("project_notes", "No Notes")
-        image_path_pre = request.form.get("project_image_path", "No Image")
-        image_path = ""
-        if image_path_pre and image_path_pre != "No Image":
-            image_path = image_path_pre
+
+        image = request.files.get("project_image")
+        if image and image.filename:
+            filename = secure_filename(image.filename)
+            full_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            image.save(full_path)
+            image_path = f"/static/images/{filename}"
         else:
-            image = request.files['project_image']
-            if image and image.filename:
-                filename = secure_filename(image.filename)
-                full_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-                image.save(full_path)
-                image_path = f"/static/images/{filename}"
-            else:
-                image_path = ""
+            image_path = request.form.get("project_image_path", "")
+
         database_update(Project(id=project_id, name=name, description=description, image=image_path, notes=notes, owner=current_user.id, sale_price=sale_price))
 
         image_files = request.files.getlist("project_images")
@@ -302,7 +299,6 @@ def edit_project(project_id):
                 new_image = ProjectImage(project_id=project_id, image_path=image_path)
                 database_insert(new_image)
         
-
         return redirect("/view_project/" + str(project_id))
     else:
         project = database_getProject(project_id)
@@ -445,20 +441,14 @@ def edit_item(item_id):
         rating = float(rating_raw) if rating_raw.strip() else 0.0
         cost = float(cost_raw) if cost_raw.strip() else 0.0
         notes = request.form.get("item_notes", "No Notes")
-        image_path_pre = request.form.get("item_image_path", "No Image")
-        image_path = ""
-        if image_path_pre and image_path_pre != "No Image":
-            image_path = image_path_pre
+        image = request.files.get('item_image')
+        if image and image.filename:
+            filename = secure_filename(image.filename)
+            full_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            image.save(full_path)
+            image_path = f"/static/images/{filename}"
         else:
-            image = request.files['item_image']
-            image_path = ""
-            if image and image.filename:
-                filename = secure_filename(image.filename)
-                full_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-                image.save(full_path)
-                image_path = f"/static/images/{filename}"
-            else:
-                image_path = ""
+            image_path = request.form.get("item_image_path", "")
         database_update(Supply(id=item_id, name=name, description=description, brand=brand, item_type=item_type, color=color, purchase_link=purchase_link, cost=cost, rating=rating, notes=notes, image=image_path))
 
         image_files = request.files.getlist("item_images")
@@ -487,7 +477,6 @@ def edit_item(item_id):
             "images": [img.image_path for img in supply.images]
         }
         return render_template("edit_item.html", item_details=item_details)
-    return redirect("/items")
 
 @app.route("/delete_item/<item_id>")
 @login_required
