@@ -14,6 +14,6 @@ Welcome to the **Personalized Catalog**! This project is designed to serve as a 
 
 ## Disclaimer
 
-- This project was made as part of a Undergraduate Capstone course for a client.
+- This project was made as part of a Undergraduate Capstone course for a local client.
 - It is not intended to be used in a commercial production environment.
 - Do not expect a high level of polish or quality assurance, as it was developed over 4 months by 2 full-time students.
