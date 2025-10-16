@@ -9,8 +9,9 @@ Welcome to the **Personalized Catalog**! This project is designed to serve as a 
 
 ## Deployment
 
-- This project is currently in a limited test deployment on PythonAnywhere:
-- https://personalizedcatalog.pythonanywhere.com/
+- ~~This project is currently in a limited test deployment on PythonAnywhere:~~
+- ~~https://personalizedcatalog.pythonanywhere.com/~~
+- Test deployment has concluded, thank you for your participation.
 
 ## Disclaimer
 
